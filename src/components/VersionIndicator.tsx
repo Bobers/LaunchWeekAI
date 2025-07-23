@@ -2,7 +2,7 @@
 
 export default function VersionIndicator() {
   // Update this version string when making significant changes
-  const VERSION = "v2.1";
+  const VERSION = "v2.2";
   const LAST_UPDATED = "Jul 23, 2025";
   
   return (

@@ -24,23 +24,14 @@ export default function Home() {
     setIsLoading(true);
     
     try {
-      // Call generate API - AI will extract context automatically
-      const response = await fetch('/api/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ markdown }),
-      });
-
-      const data = await response.json();
+      // Generate a session ID
+      const sessionId = Math.random().toString(36).substring(7);
       
-      if (data.url) {
-        // Redirect to playbook page
-        window.location.href = data.url;
-      } else {
-        throw new Error(data.error || 'Failed to generate playbook');
-      }
+      // Store markdown in session storage
+      sessionStorage.setItem(`markdown-${sessionId}`, markdown);
+      
+      // Redirect to preview page
+      window.location.href = `/preview/${sessionId}`;
     } catch (error) {
       console.error('Error:', error);
       alert('Something went wrong. Please try again.');
@@ -111,10 +102,10 @@ The AI will analyze everything and create a personalized launch strategy."
               {isLoading ? (
                 <div className="flex items-center">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                  Analyzing & Generating Strategy...
+                  Preparing Your Strategy...
                 </div>
               ) : (
-                'Generate Personalized Launch Strategy'
+                'See What You\'ll Get →'
               )}
             </button>
             <p className="text-sm text-gray-500 mt-4">
