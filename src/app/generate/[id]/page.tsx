@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import VersionIndicator from '@/components/VersionIndicator';
 
@@ -42,7 +42,20 @@ const GENERATION_STEPS = [
   }
 ] as const;
 
-type GenerationStep = typeof GENERATION_STEPS[number];
+interface ExtractedContext {
+  productName?: string;
+  productCategory?: string;
+  coreValueProposition?: string;
+  targetMarketSize?: string;
+  competitiveLandscape?: string;
+  monetizationModel?: string;
+  pricingSignals?: string;
+  primaryUserPersona?: string;
+  userBehavior?: string;
+  painPoints?: string;
+  productStage?: string;
+  timeline?: string;
+}
 
 interface StepResult {
   step: string;
@@ -59,32 +72,11 @@ export default function GeneratePage() {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [stepResults, setStepResults] = useState<Record<string, StepResult>>({});
   const [isGenerating, setIsGenerating] = useState(false);
-  const [context, setContext] = useState<any>(null);
-  const [markdown, setMarkdown] = useState<string>('');
+  const [, setContext] = useState<ExtractedContext | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [startTime, setStartTime] = useState<Date | null>(null);
 
-  // Load context and markdown on mount
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const storedMarkdown = sessionStorage.getItem(`markdown-${sessionId}`);
-    const storedContext = sessionStorage.getItem(`context-${sessionId}`);
-    
-    if (!storedMarkdown || !storedContext) {
-      router.push('/');
-      return;
-    }
-    
-    setMarkdown(storedMarkdown);
-    setContext(JSON.parse(storedContext));
-    setStartTime(new Date());
-    
-    // Start generation automatically
-    startGeneration(storedMarkdown, JSON.parse(storedContext));
-  }, [sessionId, router]);
-
-  const startGeneration = async (docMarkdown: string, docContext: any) => {
+  const startGeneration = useCallback(async (docMarkdown: string, docContext: ExtractedContext) => {
     setIsGenerating(true);
     
     for (let i = 0; i < GENERATION_STEPS.length; i++) {
@@ -152,9 +144,29 @@ export default function GeneratePage() {
     
     // Generate final playbook and redirect
     await generateFinalPlaybook(docMarkdown, docContext);
-  };
+  }, [stepResults, generateFinalPlaybook]);
 
-  const generateFinalPlaybook = async (docMarkdown: string, docContext: any) => {
+  // Load context and markdown on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const storedMarkdown = sessionStorage.getItem(`markdown-${sessionId}`);
+    const storedContext = sessionStorage.getItem(`context-${sessionId}`);
+    
+    if (!storedMarkdown || !storedContext) {
+      router.push('/');
+      return;
+    }
+    
+    const parsedContext = JSON.parse(storedContext);
+    setContext(parsedContext);
+    setStartTime(new Date());
+    
+    // Start generation automatically
+    startGeneration(storedMarkdown, parsedContext);
+  }, [sessionId, router, startGeneration]);
+
+  const generateFinalPlaybook = useCallback(async (docMarkdown: string, docContext: ExtractedContext) => {
     try {
       // Combine all step results into final playbook
       const allResults = GENERATION_STEPS.map(step => {
@@ -219,7 +231,7 @@ ${allResults}
       console.error('Failed to generate final playbook:', error);
       setError('Failed to create final playbook');
     }
-  };
+  }, [stepResults, sessionId]);
 
   const getElapsedTime = () => {
     if (!startTime) return 0;

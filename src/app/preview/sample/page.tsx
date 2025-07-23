@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+// import { useState } from 'react'; // Unused import
 import { useRouter } from 'next/navigation';
 
 const MARKETING_BLOCKS = [
@@ -86,7 +86,6 @@ const MARKETING_BLOCKS = [
 
 export default function SamplePreviewPage() {
   const router = useRouter();
-  const [isGenerating, setIsGenerating] = useState(false);
 
   const handleGeneratePlaybook = () => {
     alert('This is a sample preview page. Please start from the homepage to generate a real playbook.');
@@ -146,20 +145,13 @@ export default function SamplePreviewPage() {
           
           <button
             onClick={handleGeneratePlaybook}
-            disabled={isGenerating}
+            disabled={false}
             className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 inline-flex items-center"
           >
-            {isGenerating ? (
-              <>
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                Generating Your Strategy...
-              </>
-            ) : (
-              <>
-                <span className="mr-2">🚀</span>
-                Generate My Launch Playbook
-              </>
-            )}
+            <>
+              <span className="mr-2">🚀</span>
+              Generate My Launch Playbook
+            </>
           </button>
           
           <p className="text-sm text-gray-500 mt-4">

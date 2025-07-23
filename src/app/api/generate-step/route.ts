@@ -16,11 +16,26 @@ const GENERATION_STEPS = [
 
 type GenerationStep = typeof GENERATION_STEPS[number];
 
+interface ExtractedContext {
+  productName?: string;
+  productCategory?: string;
+  coreValueProposition?: string;
+  targetMarketSize?: string;
+  competitiveLandscape?: string;
+  monetizationModel?: string;
+  pricingSignals?: string;
+  primaryUserPersona?: string;
+  userBehavior?: string;
+  painPoints?: string;
+  productStage?: string;
+  timeline?: string;
+}
+
 interface StepGenerationRequest {
   markdown: string;
-  context: any; // From context extraction
+  context: ExtractedContext;
   step: GenerationStep;
-  previousSteps?: Record<string, string>; // Results from previous steps
+  previousSteps?: Record<string, string>;
 }
 
 export async function POST(request: NextRequest) {
@@ -70,7 +85,7 @@ function getNextStep(currentStep: GenerationStep): GenerationStep | null {
 
 async function generateStep(
   markdown: string, 
-  context: any, 
+  context: ExtractedContext, 
   step: GenerationStep, 
   previousSteps: Record<string, string>
 ): Promise<string> {
