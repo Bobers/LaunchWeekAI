@@ -76,101 +76,11 @@ export default function GeneratePage() {
   const [error, setError] = useState<string | null>(null);
   const [startTime, setStartTime] = useState<Date | null>(null);
 
-  const startGeneration = useCallback(async (docMarkdown: string, docContext: ExtractedContext) => {
-    setIsGenerating(true);
-    
-    for (let i = 0; i < GENERATION_STEPS.length; i++) {
-      setCurrentStepIndex(i);
-      const step = GENERATION_STEPS[i];
-      
-      try {
-        // Get previous step results for context
-        const previousSteps: Record<string, string> = {};
-        for (let j = 0; j < i; j++) {
-          const prevStep = GENERATION_STEPS[j];
-          if (stepResults[prevStep.id]?.result) {
-            previousSteps[prevStep.id] = stepResults[prevStep.id].result;
-          }
-        }
-        
-        const response = await fetch('/api/generate-step', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            markdown: docMarkdown,
-            context: docContext,
-            step: step.id,
-            previousSteps
-          }),
-        });
-
-        const data = await response.json();
-        
-        if (!response.ok) {
-          throw new Error(data.error || 'Generation failed');
-        }
-
-        // Update step result
-        setStepResults(prev => ({
-          ...prev,
-          [step.id]: {
-            step: step.id,
-            result: data.result,
-            completed: true
-          }
-        }));
-
-      } catch (error) {
-        console.error(`Step ${step.id} failed:`, error);
-        setStepResults(prev => ({
-          ...prev,
-          [step.id]: {
-            step: step.id,
-            result: '',
-            completed: false,
-            error: error instanceof Error ? error.message : 'Unknown error'
-          }
-        }));
-        setError(`Failed to generate ${step.title}: ${error instanceof Error ? error.message : 'Unknown error'}`);
-        setIsGenerating(false);
-        return;
-      }
-    }
-    
-    setIsGenerating(false);
-    setCurrentStepIndex(GENERATION_STEPS.length);
-    
-    // Generate final playbook and redirect
-    await generateFinalPlaybook(docMarkdown, docContext);
-  }, [stepResults, generateFinalPlaybook]);
-
-  // Load context and markdown on mount
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const storedMarkdown = sessionStorage.getItem(`markdown-${sessionId}`);
-    const storedContext = sessionStorage.getItem(`context-${sessionId}`);
-    
-    if (!storedMarkdown || !storedContext) {
-      router.push('/');
-      return;
-    }
-    
-    const parsedContext = JSON.parse(storedContext);
-    setContext(parsedContext);
-    setStartTime(new Date());
-    
-    // Start generation automatically
-    startGeneration(storedMarkdown, parsedContext);
-  }, [sessionId, router, startGeneration]);
-
-  const generateFinalPlaybook = useCallback(async (docMarkdown: string, docContext: ExtractedContext) => {
+  const generateFinalPlaybook = useCallback(async (docMarkdown: string, docContext: ExtractedContext, results: Record<string, StepResult>) => {
     try {
       // Combine all step results into final playbook
       const allResults = GENERATION_STEPS.map(step => {
-        const result = stepResults[step.id];
+        const result = results[step.id];
         return `# ${step.title.toUpperCase()}\n\n${result?.result || 'Generation failed'}`;
       }).join('\n\n---\n\n');
 
@@ -231,7 +141,107 @@ ${allResults}
       console.error('Failed to generate final playbook:', error);
       setError('Failed to create final playbook');
     }
-  }, [stepResults, sessionId]);
+  }, [sessionId]);
+
+  const startGeneration = useCallback(async (docMarkdown: string, docContext: ExtractedContext) => {
+    setIsGenerating(true);
+    
+    const results: Record<string, StepResult> = {};
+    
+    for (let i = 0; i < GENERATION_STEPS.length; i++) {
+      setCurrentStepIndex(i);
+      const step = GENERATION_STEPS[i];
+      
+      try {
+        // Get previous step results for context
+        const previousSteps: Record<string, string> = {};
+        for (let j = 0; j < i; j++) {
+          const prevStep = GENERATION_STEPS[j];
+          if (results[prevStep.id]?.result) {
+            previousSteps[prevStep.id] = results[prevStep.id].result;
+          }
+        }
+        
+        const response = await fetch('/api/generate-step', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            markdown: docMarkdown,
+            context: docContext,
+            step: step.id,
+            previousSteps
+          }),
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Generation failed');
+        }
+
+        // Update step result
+        const stepResult = {
+          step: step.id,
+          result: data.result,
+          completed: true
+        };
+        
+        results[step.id] = stepResult;
+        
+        setStepResults(prev => ({
+          ...prev,
+          [step.id]: stepResult
+        }));
+
+      } catch (error) {
+        console.error(`Step ${step.id} failed:`, error);
+        const errorResult = {
+          step: step.id,
+          result: '',
+          completed: false,
+          error: error instanceof Error ? error.message : 'Unknown error'
+        };
+        
+        results[step.id] = errorResult;
+        
+        setStepResults(prev => ({
+          ...prev,
+          [step.id]: errorResult
+        }));
+        setError(`Failed to generate ${step.title}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        setIsGenerating(false);
+        return;
+      }
+    }
+    
+    setIsGenerating(false);
+    setCurrentStepIndex(GENERATION_STEPS.length);
+    
+    // Generate final playbook and redirect
+    await generateFinalPlaybook(docMarkdown, docContext, results);
+  }, [generateFinalPlaybook]);
+
+  // Load context and markdown on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const storedMarkdown = sessionStorage.getItem(`markdown-${sessionId}`);
+    const storedContext = sessionStorage.getItem(`context-${sessionId}`);
+    
+    if (!storedMarkdown || !storedContext) {
+      router.push('/');
+      return;
+    }
+    
+    const parsedContext = JSON.parse(storedContext);
+    setContext(parsedContext);
+    setStartTime(new Date());
+    
+    // Start generation automatically
+    startGeneration(storedMarkdown, parsedContext);
+  }, [sessionId, router, startGeneration]);
 
   const getElapsedTime = () => {
     if (!startTime) return 0;
