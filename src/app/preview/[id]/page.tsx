@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 const MARKETING_BLOCKS = [
@@ -84,11 +84,66 @@ const MARKETING_BLOCKS = [
   }
 ];
 
+interface ExtractedContext {
+  productName?: string;
+  productCategory?: string;
+  coreValueProposition?: string;
+  targetMarketSize?: string;
+  competitiveLandscape?: string;
+  monetizationModel?: string;
+  pricingSignals?: string;
+  primaryUserPersona?: string;
+  userBehavior?: string;
+  painPoints?: string;
+  productStage?: string;
+  timeline?: string;
+}
+
 export default function PreviewPage() {
   const params = useParams();
   const router = useRouter();
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isExtractingContext, setIsExtractingContext] = useState(true);
+  const [context, setContext] = useState<ExtractedContext | null>(null);
+  const [contextError, setContextError] = useState<string | null>(null);
   const sessionId = params.id as string;
+
+  // Extract context when component mounts
+  useEffect(() => {
+    const extractContext = async () => {
+      try {
+        const markdown = sessionStorage.getItem(`markdown-${sessionId}`);
+        
+        if (!markdown) {
+          router.push('/');
+          return;
+        }
+
+        const response = await fetch('/api/extract-context', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ markdown }),
+        });
+
+        const data = await response.json();
+        
+        if (data.context) {
+          setContext(data.context);
+        } else {
+          setContextError(data.error || 'Failed to extract context');
+        }
+      } catch (error) {
+        console.error('Context extraction error:', error);
+        setContextError('Failed to extract context');
+      } finally {
+        setIsExtractingContext(false);
+      }
+    };
+
+    extractContext();
+  }, [sessionId, router]);
 
   const handleGeneratePlaybook = async () => {
     setIsGenerating(true);
@@ -135,10 +190,110 @@ export default function PreviewPage() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Your Personalized Launch Strategy Will Include:
+            Review Your Product Context
           </h1>
           <p className="text-xl text-gray-600">
-            6 actionable sections with ready-to-execute plans for your launch
+            AI extracted this information from your documentation. Please verify before generating your playbook.
+          </p>
+        </div>
+
+        {/* Context Extraction Results */}
+        {isExtractingContext ? (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-8 text-center mb-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <h3 className="text-lg font-semibold text-blue-900 mb-2">Analyzing Your Documentation</h3>
+            <p className="text-blue-700">AI is extracting key information about your product...</p>
+          </div>
+        ) : contextError ? (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center mb-12">
+            <div className="text-red-600 text-4xl mb-4">⚠️</div>
+            <h3 className="text-lg font-semibold text-red-900 mb-2">Context Extraction Failed</h3>
+            <p className="text-red-700 mb-4">{contextError}</p>
+            <button
+              onClick={() => router.push('/')}
+              className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg"
+            >
+              ← Back to edit documentation
+            </button>
+          </div>
+        ) : context ? (
+          <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Extracted Product Context</h2>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Product Basics */}
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">🏷️ Product Name & Category</h3>
+                  <p className="text-gray-700"><strong>{context.productName || 'Not specified'}</strong></p>
+                  <p className="text-sm text-gray-600">{context.productCategory || 'Category not identified'}</p>
+                </div>
+                
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">💡 Core Value Proposition</h3>
+                  <p className="text-gray-700">{context.coreValueProposition || 'Not clearly identified'}</p>
+                </div>
+                
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">📊 Target Market Size</h3>
+                  <p className="text-gray-700">{context.targetMarketSize || 'Not specified'}</p>
+                </div>
+                
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">🏆 Competitive Landscape</h3>
+                  <p className="text-gray-700">{context.competitiveLandscape || 'Not identified'}</p>
+                </div>
+              </div>
+              
+              {/* Business Model & Users */}
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">💰 Monetization Model</h3>
+                  <p className="text-gray-700">{context.monetizationModel || 'Not specified'}</p>
+                  {context.pricingSignals && (
+                    <p className="text-sm text-gray-600 mt-1">{context.pricingSignals}</p>
+                  )}
+                </div>
+                
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">👤 Primary User Persona</h3>
+                  <p className="text-gray-700">{context.primaryUserPersona || 'Not clearly defined'}</p>
+                  {context.userBehavior && (
+                    <p className="text-sm text-gray-600 mt-1"><strong>Behavior:</strong> {context.userBehavior}</p>
+                  )}
+                </div>
+                
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">🎯 Pain Points Solved</h3>
+                  <p className="text-gray-700">{context.painPoints || 'Not clearly identified'}</p>
+                </div>
+                
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">🚀 Product Stage & Timeline</h3>
+                  <p className="text-gray-700">{context.productStage || 'Not specified'}</p>
+                  {context.timeline && (
+                    <p className="text-sm text-gray-600 mt-1">{context.timeline}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <p className="text-sm text-yellow-800">
+                <strong>Important:</strong> Review this information carefully. The quality of your launch playbook depends on accurate context. 
+                If anything looks wrong, go back and add more details to your documentation.
+              </p>
+            </div>
+          </div>
+        ) : null}
+
+        {/* Marketing Blocks Preview */}
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Your Launch Strategy Will Include:
+          </h2>
+          <p className="text-lg text-gray-600">
+            6 actionable sections with ready-to-execute plans
           </p>
         </div>
 
@@ -179,13 +334,23 @@ export default function PreviewPage() {
           
           <button
             onClick={handleGeneratePlaybook}
-            disabled={isGenerating}
+            disabled={isGenerating || isExtractingContext || !context}
             className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 inline-flex items-center"
           >
             {isGenerating ? (
               <>
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                 Generating Your Strategy...
+              </>
+            ) : isExtractingContext ? (
+              <>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                Analyzing Documentation...
+              </>
+            ) : !context ? (
+              <>
+                <span className="mr-2">❌</span>
+                Cannot Generate (Context Missing)
               </>
             ) : (
               <>
@@ -195,9 +360,17 @@ export default function PreviewPage() {
             )}
           </button>
           
-          <p className="text-sm text-gray-500 mt-4">
-            This typically takes 30-60 seconds
-          </p>
+          {context && (
+            <p className="text-sm text-green-600 mt-2">
+              ✓ Context verified - Ready to generate personalized playbook
+            </p>
+          )}
+          
+          {!isExtractingContext && context && (
+            <p className="text-sm text-gray-500 mt-4">
+              This typically takes 30-60 seconds
+            </p>
+          )}
         </div>
 
         {/* Back Link */}
