@@ -20,8 +20,7 @@ export async function POST(request: NextRequest) {
   console.log('POST /api/generate - Request received');
   
   try {
-    const { context } = await request.json();
-    const { markdown } = context || {};
+    const { markdown } = await request.json();
     
     // Basic validation
     if (!markdown || typeof markdown !== 'string') {
@@ -54,10 +53,16 @@ export async function POST(request: NextRequest) {
       createdAt: new Date().toISOString(),
     });
 
-    // Generate playbook immediately (no payment required)
+    // Generate playbook with AI-extracted context
     try {
       console.log(`Generating playbook ${playbookId}...`);
-      const playbook = await generatePlaybook(context);
+      
+      // Step 1: Extract context from markdown
+      const context = await extractContext(markdown);
+      console.log('Extracted context:', context);
+      
+      // Step 2: Generate personalized playbook
+      const playbook = await generatePlaybook(markdown, context);
       
       // Store completed playbook
       playbookStorage.set(playbookId, {
@@ -99,129 +104,29 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function generatePlaybook(context: any): Promise<string> {
-  const { 
-    markdown,
-    productStage,
-    productDescription,
-    primaryUser,
-    problemSolved,
-    marketSize,
-    competitors,
-    monetization,
-    pricing,
-    threeMonthGoal,
-    goalDetails,
-    teamSize,
-    budget,
-    timeline,
-    advantages
-  } = context;
+async function extractContext(markdown: string): Promise<any> {
+  const extractionPrompt = `Analyze the following AI product documentation and extract key information. Return a JSON object with these fields:
 
-  // Build context summary
-  const contextSummary = `
-## Product Context
-- **Stage:** ${productStage}
-- **Description:** ${productDescription}
-- **Primary User:** ${primaryUser}
-- **Problem Solved:** ${problemSolved}
-- **Market Size:** ${marketSize}
-- **Competitors:** ${competitors || 'None specified'}
+{
+  "productName": "extracted product name",
+  "productStage": "concept|mvp|beta|production",
+  "productDescription": "one-line description of what it does",
+  "primaryUser": "developer|business|consumer|other",
+  "problemSolved": "specific problem it solves",
+  "marketSize": "niche|medium|large|massive",
+  "competitors": "list of competitors if mentioned",
+  "monetization": "free|freemium|subscription|onetime|usage|unknown",
+  "pricing": "pricing details if mentioned",
+  "targetMetrics": "any mentioned goals or KPIs",
+  "teamSize": "solo|small|large|unknown",
+  "timeline": "days|weeks|months|unknown",
+  "uniqueAdvantages": "any mentioned advantages, partnerships, etc"
+}
 
-## Business Model
-- **Monetization:** ${monetization}
-- **Pricing:** ${pricing || 'Not specified'}
-- **3-Month Goal:** ${threeMonthGoal} ${goalDetails ? `(${goalDetails})` : ''}
-
-## Resources
-- **Team Size:** ${teamSize}
-- **Budget:** ${budget}
-- **Timeline:** Launch within ${timeline}
-- **Existing Advantages:** ${Object.entries(advantages).filter(([k, v]) => v && k !== 'other').map(([k]) => k).join(', ') || 'None'} ${advantages.other || ''}
-`;
-
-  const prompt = `You are a launch strategy expert. Create a HIGHLY SPECIFIC and ACTIONABLE launch playbook based on the following context and product documentation. 
-
-${contextSummary}
-
-## Product Documentation
+Documentation to analyze:
 ${markdown}
 
-IMPORTANT: Generate a HIGHLY PERSONALIZED launch strategy that:
-1. Is specific to their ${primaryUser} target audience
-2. Considers their ${teamSize} team and ${budget} budget constraints  
-3. Focuses on achieving their goal: ${threeMonthGoal} ${goalDetails ? `(${goalDetails})` : ''}
-4. Provides concrete, actionable steps they can take within ${timeline}
-5. Recommends specific channels and tactics based on their audience and resources
-
-Create a detailed launch playbook that includes:
-
-# Launch Playbook for [Product Name]
-
-## Executive Summary
-- Brief overview of the product
-- Key value propositions
-- Target market
-
-## Pre-Launch Strategy (Weeks 1-4)
-### Market Research & Validation
-- Target audience analysis
-- Competitive landscape
-- Market positioning
-
-### Product Readiness
-- Feature completeness checklist
-- Quality assurance steps
-- Documentation requirements
-
-### Team Preparation
-- Role assignments
-- Communication protocols
-- Contingency planning
-
-## Launch Strategy (Launch Week)
-### Announcement Sequence
-- Pre-announcement teasers (specific to ${primaryUser} audience)
-- Main launch event 
-- Follow-up communications
-
-### Channel Strategy (Tailored to ${primaryUser} audience)
-- Primary launch channels (be specific based on audience)
-- Content distribution plan
-- Community engagement tactics
-
-### Technical Preparation
-- Infrastructure scaling
-- Monitoring setup
-- Support systems
-
-## Post-Launch Strategy (Weeks 1-8)
-### Performance Monitoring
-- Key metrics to track
-- Success criteria
-- Feedback collection
-
-### Growth Acceleration
-- User acquisition tactics
-- Feature iteration plan
-- Community building
-
-### Long-term Strategy
-- Roadmap priorities
-- Market expansion
-- Partnership opportunities
-
-## Risk Mitigation
-- Potential challenges
-- Mitigation strategies
-- Crisis communication plan
-
-## Success Metrics
-- Quantitative KPIs
-- Qualitative measures
-- Milestone timeline
-
-Format the response in clean markdown with proper headers, bullet points, and actionable items.`;
+Return ONLY the JSON object, no other text.`;
 
   try {
     const completion = await openai.chat.completions.create({
@@ -229,16 +134,167 @@ Format the response in clean markdown with proper headers, bullet points, and ac
       messages: [
         {
           role: 'system',
-          content: `You are a launch strategy expert who creates comprehensive, actionable launch playbooks for AI products. 
+          content: 'You are an expert at analyzing product documentation and extracting key business information. Always return valid JSON.'
+        },
+        {
+          role: 'user',
+          content: extractionPrompt
+        }
+      ],
+      temperature: 0.3,
+      max_tokens: 1000,
+    });
+
+    const response = completion.choices[0]?.message?.content || '{}';
+    try {
+      return JSON.parse(response);
+    } catch (e) {
+      console.error('Failed to parse context JSON:', e);
+      return {};
+    }
+  } catch (error) {
+    console.error('Context extraction error:', error);
+    return {};
+  }
+}
+
+async function generatePlaybook(markdown: string, context: any): Promise<string> {
+  const { 
+    productName = 'Your Product',
+    productStage = 'unknown',
+    productDescription = '',
+    primaryUser = 'unknown',
+    problemSolved = '',
+    marketSize = 'unknown',
+    competitors = '',
+    monetization = 'unknown',
+    pricing = '',
+    targetMetrics = '',
+    teamSize = 'unknown',
+    timeline = 'unknown',
+    uniqueAdvantages = ''
+  } = context;
+
+  const prompt = `You are a launch strategy expert. Create a HIGHLY SPECIFIC and ACTIONABLE launch playbook based on the following AI product.
+
+## Extracted Context
+- **Product:** ${productName} - ${productDescription}
+- **Stage:** ${productStage}
+- **Target User:** ${primaryUser}
+- **Problem Solved:** ${problemSolved}
+- **Market Size:** ${marketSize}
+- **Competitors:** ${competitors || 'None identified'}
+- **Business Model:** ${monetization} ${pricing ? `(${pricing})` : ''}
+- **Goals:** ${targetMetrics || 'Not specified'}
+- **Team:** ${teamSize}
+- **Timeline:** ${timeline}
+- **Advantages:** ${uniqueAdvantages || 'None identified'}
+
+## Full Product Documentation
+${markdown}
+
+Create a comprehensive launch playbook that includes:
+
+# Launch Playbook for ${productName}
+
+## Executive Summary
+- Brief overview tailored to ${productStage} stage
+- Key value propositions for ${primaryUser} users
+- Realistic goals based on ${teamSize} team
+
+## Pre-Launch Strategy (Weeks 1-4)
+### Market Research & Validation
+- Specific research tactics for ${primaryUser} audience
+- Competitor analysis of ${competitors || 'similar products'}
+- Positioning strategy for ${marketSize} market
+
+### Product Readiness
+- Critical features for ${primaryUser} users
+- MVP vs full feature decisions based on ${productStage}
+- Documentation priorities
+
+### Team Preparation
+- Role distribution for ${teamSize} team
+- Key skills needed
+- Contingency planning
+
+## Launch Strategy (Launch Week)
+### Channel Strategy for ${primaryUser} Audience
+${primaryUser === 'developer' ? `- Hacker News launch post
+- GitHub repository optimization
+- dev.to article series
+- Reddit (r/programming, r/MachineLearning)
+- Twitter developer community` : 
+primaryUser === 'business' ? `- ProductHunt launch
+- LinkedIn thought leadership
+- Industry publication outreach
+- Webinar/demo strategy
+- Cold email campaigns` :
+primaryUser === 'consumer' ? `- Social media campaigns
+- Influencer partnerships
+- App store optimization
+- Content marketing
+- Community building` :
+`- Mixed channel approach
+- Community identification
+- Content strategy`}
+
+### Launch Sequence
+- Soft launch tactics for ${teamSize} team
+- Main announcement timing
+- Follow-up campaigns
+
+## Growth Strategy (Post-Launch)
+### Based on ${monetization} Model
+${monetization === 'free' ? `- Focus on user acquisition
+- Community building
+- Future monetization planning` :
+monetization === 'freemium' ? `- Free tier optimization
+- Conversion funnel design
+- Premium feature highlights` :
+monetization === 'subscription' ? `- Trial optimization
+- Onboarding flow
+- Retention strategies` :
+`- Pricing validation
+- Revenue optimization
+- Customer feedback loops`}
+
+### Metrics & KPIs
+- Specific metrics for ${productStage} stage
+- ${targetMetrics ? `Focus on: ${targetMetrics}` : 'Standard SaaS metrics'}
+- Weekly tracking plan
+
+## Resource Allocation
+### For ${teamSize} Team
+- Task prioritization
+- Automation opportunities
+- Outsourcing decisions
+
+## Risk Mitigation
+- Common pitfalls for ${primaryUser} market
+- Contingency plans
+- Crisis communication
+
+## 30-60-90 Day Plan
+- Specific milestones
+- Resource requirements
+- Success criteria
+
+Remember to be EXTREMELY specific with tactics, channels, and actions based on the extracted context.`;
+
+  try {
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [
+        {
+          role: 'system',
+          content: `You are a launch strategy expert. Create actionable, specific strategies based on the product context. 
           
-CRITICAL INSTRUCTIONS:
-- Be EXTREMELY specific with channel recommendations based on the target audience
-- For developers: Focus on HackerNews, GitHub, dev.to, Reddit (r/programming), Twitter tech community
-- For businesses: Focus on LinkedIn, ProductHunt, industry publications, webinars
-- For consumers: Focus on social media, influencer partnerships, app stores
-- Consider budget constraints: No budget = organic tactics only, Small = targeted ads, etc.
-- Timeline affects strategy: Days = soft launch, Weeks = proper campaign, Months = build anticipation
-- Existing advantages should be leveraged heavily in the strategy`
+CRITICAL: 
+- Be very specific about channels and tactics for the identified user type
+- Consider team size and resources when making recommendations
+- Provide concrete examples and templates where helpful
+- Focus on what's realistic for their stage and timeline`
         },
         {
           role: 'user',

@@ -1,22 +1,36 @@
 'use client';
 
 import { useState } from 'react';
-import LaunchStrategyWizard from '@/components/LaunchStrategyWizard';
 
 export default function Home() {
+  const [markdown, setMarkdown] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [charCount, setCharCount] = useState(0);
 
-  const handleGeneratePlaybook = async (context: any) => {
+  const handleMarkdownChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    if (value.length <= 50000) {
+      setMarkdown(value);
+      setCharCount(value.length);
+    }
+  };
+
+  const handleGeneratePlaybook = async () => {
+    if (!markdown.trim()) {
+      alert('Please paste your markdown documentation first.');
+      return;
+    }
+
     setIsLoading(true);
     
     try {
-      // Call generate API with full context
+      // Call generate API - AI will extract context automatically
       const response = await fetch('/api/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ context }),
+        body: JSON.stringify({ markdown }),
       });
 
       const data = await response.json();
@@ -44,27 +58,70 @@ export default function Home() {
             Turn Your AI Docs Into a Launch Strategy
           </h1>
           <p className="text-xl text-gray-600 mb-2">
-            Get a personalized launch playbook tailored to your specific situation
+            Just paste your documentation - AI analyzes everything automatically
           </p>
           <p className="text-lg text-gray-500">
-            Answer a few questions and receive actionable strategies for your AI product launch
+            Get a personalized launch playbook tailored to your specific product and market
           </p>
         </div>
 
         {/* Main Content */}
-        {isLoading ? (
-          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              Generating Your Custom Launch Strategy
-            </h2>
-            <p className="text-gray-600">
-              Our AI is analyzing your inputs and creating a personalized playbook...
+        <div className="bg-white rounded-lg shadow-lg p-8">
+          <div className="mb-6">
+            <label htmlFor="markdown" className="block text-sm font-medium text-gray-700 mb-2">
+              Paste your AI product documentation (Markdown format)
+            </label>
+            <textarea
+              id="markdown"
+              value={markdown}
+              onChange={handleMarkdownChange}
+              placeholder="Paste your markdown documentation here...
+
+Include information about:
+- What your product does
+- Target audience
+- Key features
+- Technical details
+- Pricing model (if any)
+- Current stage (MVP, beta, etc.)
+
+The AI will analyze everything and create a personalized launch strategy."
+              className="w-full h-64 p-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              disabled={isLoading}
+            />
+            <div className="flex justify-between items-center mt-2">
+              <span className="text-sm text-gray-500">
+                Characters: {charCount.toLocaleString()} / 50,000
+              </span>
+              {charCount > 45000 && (
+                <span className="text-sm text-orange-600">
+                  Approaching limit
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* CTA Button */}
+          <div className="text-center">
+            <button
+              onClick={handleGeneratePlaybook}
+              disabled={isLoading || !markdown.trim()}
+              className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
+            >
+              {isLoading ? (
+                <div className="flex items-center">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  Analyzing & Generating Strategy...
+                </div>
+              ) : (
+                'Generate Personalized Launch Strategy'
+              )}
+            </button>
+            <p className="text-sm text-gray-500 mt-4">
+              AI extracts all context from your documentation automatically
             </p>
           </div>
-        ) : (
-          <LaunchStrategyWizard onComplete={handleGeneratePlaybook} />
-        )}
+        </div>
 
         {/* Footer */}
         <div className="text-center mt-12">
