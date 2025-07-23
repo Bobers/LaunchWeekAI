@@ -24,3 +24,48 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Custom table styles for markdown content */
+.prose table {
+  @apply w-full border-collapse overflow-hidden rounded-lg shadow-sm;
+}
+
+.prose thead {
+  @apply bg-gray-100;
+}
+
+.prose th {
+  @apply border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900;
+}
+
+.prose td {
+  @apply border border-gray-300 px-4 py-3 text-gray-700;
+}
+
+.prose tbody tr:nth-child(even) {
+  @apply bg-gray-50;
+}
+
+.prose tbody tr:hover {
+  @apply bg-blue-50 transition-colors;
+}
+
+/* Responsive table wrapper */
+.prose .table-wrapper {
+  @apply overflow-x-auto -mx-4 px-4;
+}
+
+.prose table {
+  @apply min-w-full;
+}
+
+/* Fix table alignment issues */
+.prose th:first-child,
+.prose td:first-child {
+  @apply pl-6;
+}
+
+.prose th:last-child,
+.prose td:last-child {
+  @apply pr-6;
+}

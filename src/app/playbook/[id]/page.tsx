@@ -197,7 +197,12 @@ export default function PlaybookPage() {
               prose-li:mb-1
               prose-strong:text-gray-900
               prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-              prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:pl-4 prose-blockquote:italic"
+              prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:pl-4 prose-blockquote:italic
+              prose-table:border-collapse prose-table:w-full
+              prose-thead:bg-gray-50
+              prose-th:border prose-th:border-gray-300 prose-th:px-4 prose-th:py-2 prose-th:text-left prose-th:font-semibold
+              prose-td:border prose-td:border-gray-300 prose-td:px-4 prose-td:py-2
+              prose-tr:hover:bg-gray-50"
             dangerouslySetInnerHTML={renderMarkdown(data.playbook!)}
           />
         </div>
