@@ -5,81 +5,81 @@ import { useRouter } from 'next/navigation';
 
 const MARKETING_BLOCKS = [
   {
-    id: 'user-persona',
-    title: 'User Persona',
+    id: 'context-extraction',
+    title: 'Context Extraction',
+    icon: '🔍',
+    description: 'AI extracts your product DNA to create a foundation for everything else',
+    details: [
+      'Product category and core value proposition',
+      'Target market size and competitive landscape',
+      'Current development stage and timeline',
+      'Monetization model and pricing signals',
+      'Technical complexity and user onboarding needs'
+    ]
+  },
+  {
+    id: 'target-user-analysis',
+    title: 'Target User Analysis',
     icon: '👤',
-    description: 'Detailed user personas with demographics, challenges, and online behavior',
+    description: 'Specific user personas with behaviors, pain points, and online habits',
     details: [
-      'Primary persona with name, role, and background',
-      'Daily challenges and pain points',
-      'Where they spend time online',
-      'Decision-making process',
-      'Secondary personas for different use cases'
+      'Primary persona with name, role, and daily workflow',
+      'Specific pain points your product solves',
+      'Where they discover new tools (platforms, communities)',
+      'Decision-making process and budget authority',
+      'Communication preferences and trust signals'
     ]
   },
   {
-    id: 'positioning',
-    title: 'Positioning',
+    id: 'launch-timeline',
+    title: '7-Day Launch Timeline',
+    icon: '📅',
+    description: 'Step-by-step daily action plan from pre-launch to post-launch',
+    details: [
+      'Pre-launch prep checklist (48 hours before)',
+      'Day 1-2: Soft launch and early feedback collection',
+      'Day 3-4: Targeted outreach and community engagement',
+      'Day 5-6: Product Hunt or major platform launch',
+      'Day 7: Analysis and next phase planning'
+    ]
+  },
+  {
+    id: 'platform-strategy',
+    title: 'Platform Strategy',
     icon: '🎯',
-    description: 'Clear positioning statement and competitive differentiation',
+    description: 'Channel-specific tactics tailored to where your users actually hang out',
     details: [
-      'Complete positioning statement',
-      'Competitive positioning map',
-      'Unique value proposition',
-      'Market gaps you fill',
-      'Key differentiators'
+      'Twitter/X strategy with hashtags and engagement tactics',
+      'LinkedIn approach for B2B products',
+      'Reddit communities and posting guidelines',
+      'Discord/Slack community engagement plan',
+      'Direct outreach templates and target lists'
     ]
   },
   {
-    id: 'brand-marketing',
-    title: 'Brand Marketing',
-    icon: '🎨',
-    description: 'Brand personality, voice, tone, and messaging hierarchy',
-    details: [
-      'Brand personality traits',
-      'Voice and tone guidelines',
-      'Visual identity direction',
-      'Tagline options',
-      'Elevator pitch'
-    ]
-  },
-  {
-    id: 'marketing-copy',
-    title: 'Marketing Copy',
+    id: 'content-templates',
+    title: 'Content Templates',
     icon: '✍️',
-    description: 'Ready-to-use website copy, email templates, and social proof',
+    description: 'Ready-to-copy templates for tweets, DMs, posts, and landing pages',
     details: [
-      'Website hero headline and subheadline',
-      'Feature descriptions',
-      'Call-to-action buttons',
-      'Email templates',
-      'Social proof structure'
+      '10+ tweet variations for different audiences',
+      'Personalized DM templates for outreach',
+      'Community post templates (Reddit, Discord, etc.)',
+      'Landing page headlines and copy blocks',
+      'Email templates for user feedback and updates'
     ]
   },
   {
-    id: 'user-acquisition',
-    title: 'User Acquisition',
-    icon: '🚀',
-    description: 'Channel-specific strategies and tactics for your target audience',
+    id: 'metrics-dashboard',
+    title: 'Metrics Dashboard',
+    icon: '📊',
+    description: 'Daily tracking plan with success criteria and contingency plans',
     details: [
-      'Platform-specific tactics',
-      'Content calendar',
-      'Launch sequence',
-      'Growth hacking techniques',
-      'Community building'
-    ]
-  },
-  {
-    id: 'offer-audit',
-    title: 'Offer Audit',
-    icon: '💰',
-    description: 'Pricing strategy, offer structure, and launch promotions',
-    details: [
-      'Pricing recommendations',
-      'Tier structure',
-      'Launch discounts',
-      'Objection handling',
-      'Risk reversal options'
+      'Key metrics to track each day (traffic, signups, usage)',
+      'Success benchmarks for each launch phase',
+      'Warning signs and when to pivot tactics',
+      'Tools for tracking (analytics, social monitoring)',
+      'Weekly review checklist and next steps'
     ]
   }
 ];
@@ -105,7 +105,7 @@ export default function SamplePreviewPage() {
             Your Personalized Launch Strategy Will Include:
           </h1>
           <p className="text-xl text-gray-600">
-            6 comprehensive marketing deliverables tailored to your AI product
+            6 actionable sections with ready-to-execute plans for your launch
           </p>
         </div>
 
@@ -141,7 +141,7 @@ export default function SamplePreviewPage() {
             Ready to Generate Your Launch Strategy?
           </h2>
           <p className="text-gray-600 mb-6">
-            Our AI will analyze your documentation and create actionable strategies for each area
+            Our AI will analyze your documentation and create step-by-step execution plans
           </p>
           
           <button
