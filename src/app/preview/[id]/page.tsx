@@ -103,50 +103,66 @@ export default function PreviewPage() {
   const params = useParams();
   const router = useRouter();
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isExtractingContext, setIsExtractingContext] = useState(true);
+  const [isExtractingContext, setIsExtractingContext] = useState(false);
   const [context, setContext] = useState<ExtractedContext | null>(null);
   const [contextError, setContextError] = useState<string | null>(null);
+  const [hasStartedExtraction, setHasStartedExtraction] = useState(false);
   const sessionId = params.id as string;
 
-  // Extract context when component mounts
+  // Helper function to safely render context values
+  const renderContextValue = (value: unknown, fallback: string = 'Not specified'): string => {
+    if (!value) return fallback;
+    if (typeof value === 'string') return value;
+    if (typeof value === 'object') return JSON.stringify(value);
+    return String(value);
+  };
+
+  // Check session on mount but don't extract context yet
   useEffect(() => {
-    const extractContext = async () => {
-      try {
-        // Check if we're in the browser
-        if (typeof window === 'undefined') return;
-        
-        const markdown = sessionStorage.getItem(`markdown-${sessionId}`);
-        
-        if (!markdown) {
-          router.push('/');
-          return;
-        }
-
-        const response = await fetch('/api/extract-context', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ markdown }),
-        });
-
-        const data = await response.json();
-        
-        if (data.context) {
-          setContext(data.context);
-        } else {
-          setContextError(data.error || 'Failed to extract context');
-        }
-      } catch (error) {
-        console.error('Context extraction error:', error);
-        setContextError('Failed to extract context');
-      } finally {
-        setIsExtractingContext(false);
-      }
-    };
-
-    extractContext();
+    if (typeof window === 'undefined') return;
+    
+    const markdown = sessionStorage.getItem(`markdown-${sessionId}`);
+    if (!markdown) {
+      router.push('/');
+    }
   }, [sessionId, router]);
+
+  // Function to start context extraction
+  const startContextExtraction = async () => {
+    if (hasStartedExtraction) return;
+    setHasStartedExtraction(true);
+    setIsExtractingContext(true);
+    
+    try {
+      const markdown = sessionStorage.getItem(`markdown-${sessionId}`);
+      if (!markdown) {
+        router.push('/');
+        return;
+      }
+
+      console.log('Starting context extraction...');
+      const response = await fetch('/api/extract-context', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ markdown }),
+      });
+
+      const data = await response.json();
+      
+      if (data.context) {
+        setContext(data.context);
+      } else {
+        setContextError(data.error || 'Failed to extract context');
+      }
+    } catch (error) {
+      console.error('Context extraction error:', error);
+      setContextError('Failed to extract context');
+    } finally {
+      setIsExtractingContext(false);
+    }
+  };
 
   const handleGeneratePlaybook = async () => {
     setIsGenerating(true);
@@ -206,8 +222,23 @@ export default function PreviewPage() {
           </p>
         </div>
 
-        {/* Context Extraction Results */}
-        {isExtractingContext ? (
+        {/* Context Extraction Section */}
+        {!hasStartedExtraction ? (
+          <div className="bg-white rounded-lg shadow-lg p-8 text-center mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Ready to Analyze Your Documentation
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Click below to start AI analysis of your product documentation
+            </p>
+            <button
+              onClick={startContextExtraction}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg"
+            >
+              🔍 Start Context Analysis
+            </button>
+          </div>
+        ) : isExtractingContext ? (
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-8 text-center mb-12">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
             <h3 className="text-lg font-semibold text-blue-900 mb-2">Analyzing Your Documentation</h3>
@@ -234,8 +265,8 @@ export default function PreviewPage() {
               <div className="space-y-4">
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">🏷️ Product Name & Category</h3>
-                  <p className="text-gray-700"><strong>{context.productName || 'Not specified'}</strong></p>
-                  <p className="text-sm text-gray-600">{context.productCategory || 'Category not identified'}</p>
+                  <p className="text-gray-700"><strong>{renderContextValue(context.productName)}</strong></p>
+                  <p className="text-sm text-gray-600">{renderContextValue(context.productCategory, 'Category not identified')}</p>
                 </div>
                 
                 <div>
@@ -266,9 +297,19 @@ export default function PreviewPage() {
                 
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">👤 Primary User Persona</h3>
-                  <p className="text-gray-700">{context.primaryUserPersona || 'Not clearly defined'}</p>
+                  <p className="text-gray-700">
+                    {typeof context.primaryUserPersona === 'string' 
+                      ? context.primaryUserPersona 
+                      : context.primaryUserPersona 
+                        ? JSON.stringify(context.primaryUserPersona) 
+                        : 'Not clearly defined'}
+                  </p>
                   {context.userBehavior && (
-                    <p className="text-sm text-gray-600 mt-1"><strong>Behavior:</strong> {context.userBehavior}</p>
+                    <p className="text-sm text-gray-600 mt-1">
+                      <strong>Behavior:</strong> {typeof context.userBehavior === 'string' 
+                        ? context.userBehavior 
+                        : JSON.stringify(context.userBehavior)}
+                    </p>
                   )}
                 </div>
                 

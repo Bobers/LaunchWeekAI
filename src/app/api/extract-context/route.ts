@@ -6,10 +6,32 @@ const openai = new OpenAI({
 });
 
 export async function POST(request: NextRequest) {
-  console.log('POST /api/extract-context - Request received');
+  const startTime = Date.now();
+  console.log('POST /api/extract-context - Request received at', new Date().toISOString());
   
   try {
     const { markdown } = await request.json();
+    console.log('Markdown length:', markdown?.length || 0);
+    
+    // Quick mock mode for testing
+    if (process.env.MOCK_MODE === 'true') {
+      console.log('Using mock mode for quick testing');
+      const mockContext: ExtractedContext = {
+        productName: 'Test Product',
+        productCategory: 'AI Developer Tool',
+        coreValueProposition: 'Helps developers build AI features faster',
+        targetMarketSize: 'Large (millions of developers)',
+        competitiveLandscape: 'Competes with OpenAI, Anthropic APIs',
+        monetizationModel: 'Freemium',
+        pricingSignals: '$20/month pro plan',
+        primaryUserPersona: 'Full-stack developers building AI features',
+        userBehavior: 'Active on GitHub, HackerNews, dev.to',
+        painPoints: 'Complex AI integration, high API costs',
+        productStage: 'Beta',
+        timeline: 'Launching in 2 weeks'
+      };
+      return NextResponse.json({ context: mockContext });
+    }
     
     // Basic validation
     if (!markdown || typeof markdown !== 'string') {
@@ -34,7 +56,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Extract context from markdown
+    console.log('Starting context extraction...');
     const context = await extractContext(markdown);
+    
+    const duration = Date.now() - startTime;
+    console.log(`Context extraction completed in ${duration}ms`);
     
     return NextResponse.json({ context });
 
@@ -63,6 +89,9 @@ interface ExtractedContext {
 }
 
 async function extractContext(markdown: string): Promise<ExtractedContext> {
+  console.log('Calling OpenAI API for context extraction...');
+  const openaiStart = Date.now();
+  
   const extractionPrompt = `Analyze the following AI product documentation and extract key information for launch planning. Return a JSON object with these fields:
 
 {
@@ -103,6 +132,9 @@ Return ONLY the JSON object, no other text.`;
       temperature: 0.3,
       max_tokens: 1500,
     });
+    
+    const openaiDuration = Date.now() - openaiStart;
+    console.log(`OpenAI API call completed in ${openaiDuration}ms`);
 
     const response = completion.choices[0]?.message?.content || '{}';
     try {
@@ -114,7 +146,20 @@ Return ONLY the JSON object, no other text.`;
         cleanJson = cleanJson.replace(/^```\s*/, '').replace(/\s*```$/, '');
       }
       
-      return JSON.parse(cleanJson);
+      const parsed = JSON.parse(cleanJson);
+      
+      // Ensure all values are strings, not objects
+      const sanitized: ExtractedContext = {};
+      for (const [key, value] of Object.entries(parsed)) {
+        if (typeof value === 'object' && value !== null) {
+          // Convert object to string representation
+          sanitized[key as keyof ExtractedContext] = JSON.stringify(value);
+        } else {
+          sanitized[key as keyof ExtractedContext] = value as string;
+        }
+      }
+      
+      return sanitized;
     } catch (e) {
       console.error('Failed to parse context JSON:', e);
       console.error('Raw response:', response);
