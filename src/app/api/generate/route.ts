@@ -104,7 +104,23 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function extractContext(markdown: string): Promise<any> {
+interface ExtractedContext {
+  productName?: string;
+  productStage?: string;
+  productDescription?: string;
+  primaryUser?: string;
+  problemSolved?: string;
+  marketSize?: string;
+  competitors?: string;
+  monetization?: string;
+  pricing?: string;
+  targetMetrics?: string;
+  teamSize?: string;
+  timeline?: string;
+  uniqueAdvantages?: string;
+}
+
+async function extractContext(markdown: string): Promise<ExtractedContext> {
   const extractionPrompt = `Analyze the following AI product documentation and extract key information. Return a JSON object with these fields:
 
 {
@@ -158,7 +174,7 @@ Return ONLY the JSON object, no other text.`;
   }
 }
 
-async function generatePlaybook(markdown: string, context: any): Promise<string> {
+async function generatePlaybook(markdown: string, context: ExtractedContext): Promise<string> {
   const { 
     productName = 'Your Product',
     productStage = 'unknown',
