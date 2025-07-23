@@ -24,7 +24,7 @@ export default function PlaybookPage() {
   useEffect(() => {
     const fetchPlaybook = async () => {
       try {
-        const response = await fetch(`/api/webhook?id=${playbookId}`);
+        const response = await fetch(`/api/generate?id=${playbookId}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch playbook');

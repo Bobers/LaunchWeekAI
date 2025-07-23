@@ -24,8 +24,8 @@ export default function Home() {
     setIsLoading(true);
     
     try {
-      // Call checkout API
-      const response = await fetch('/api/checkout', {
+      // Call generate API (no payment required for POC)
+      const response = await fetch('/api/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,10 +36,10 @@ export default function Home() {
       const data = await response.json();
       
       if (data.url) {
-        // Redirect to Stripe checkout
+        // Redirect to playbook page
         window.location.href = data.url;
       } else {
-        throw new Error(data.error || 'Failed to create checkout session');
+        throw new Error(data.error || 'Failed to generate playbook');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -61,7 +61,7 @@ export default function Home() {
             Get your comprehensive launch playbook in minutes
           </p>
           
-          {/* 3-step process */}
+          {/* 2-step process for POC */}
           <div className="flex justify-center items-center space-x-8 mb-8">
             <div className="flex items-center">
               <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold mr-2">1</div>
@@ -70,7 +70,7 @@ export default function Home() {
             <div className="text-gray-400">→</div>
             <div className="flex items-center">
               <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold mr-2">2</div>
-              <span className="text-gray-700">Pay</span>
+              <span className="text-gray-700">Generate</span>
             </div>
             <div className="text-gray-400">→</div>
             <div className="flex items-center">
@@ -127,11 +127,11 @@ Example:
                   Processing...
                 </div>
               ) : (
-                'Generate Playbook - $49'
+                'Generate Playbook (Free POC)'
               )}
             </button>
             <p className="text-sm text-gray-500 mt-4">
-              Secure payment powered by Stripe
+              AI-powered playbook generation
             </p>
           </div>
         </div>
