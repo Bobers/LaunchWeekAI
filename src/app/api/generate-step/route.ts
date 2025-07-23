@@ -149,11 +149,45 @@ Be extremely specific to this product and market, not generic advice.`,
 
     'launch-timeline': `${baseContext}
 
-Create a detailed Launch Timeline following the proven 2-week pattern (Week -2, Week -1, Launch Week).
+Create a detailed 4-Week Launch Timeline following the data-backed pattern (Discord community FIRST).
 
-# LAUNCH TIMELINE
+# THE 4-WEEK LAUNCH TIMELINE
 
-## Week -2: Foundation Building
+## Week -4: Discord Community Building
+### Monday-Tuesday: Server Setup
+- [ ] Create Discord server for ${context.productName}
+- [ ] Set up channels: #welcome, #feedback, #showcase, #support
+- [ ] Create onboarding flow with Carl-bot
+- [ ] Design server icon and banner
+- [ ] Write community guidelines
+
+### Wednesday-Friday: Initial Members
+- [ ] Invite 10-20 friends/colleagues personally
+- [ ] Share in relevant Discord servers (not spam)
+- [ ] Post valuable content daily (tips, insights)
+- [ ] Run "The Discord Test": Share problem statement
+- [ ] Success metric: 50+ reactions = validated idea
+
+## Week -3: Soft Launch & Feedback
+### Monday: Alpha Access
+- [ ] Give Discord members exclusive access
+- [ ] Create #alpha-testing channel
+- [ ] Set up feedback forms
+- [ ] Offer lifetime deals to first 10 users
+
+### Tuesday-Thursday: Rapid Iteration
+- [ ] Daily standup posts in Discord
+- [ ] Implement top 3 requested features
+- [ ] Fix critical bugs immediately
+- [ ] Share progress transparently
+
+### Friday: Waitlist Launch
+- [ ] Create landing page with "10k free credits" hook
+- [ ] Add "From the makers of [previous success]" if applicable
+- [ ] Share waitlist in Discord first
+- [ ] Goal: 100+ waitlist signups
+
+## Week -2: Pre-Launch Momentum
 ### Monday-Tuesday: Product Readiness
 - [ ] Final bug fixes for [specific product features]
 - [ ] Load testing for expected [user volume] concurrent users
@@ -167,19 +201,20 @@ Create a detailed Launch Timeline following the proven 2-week pattern (Week -2, 
 - [ ] Social media carousel designs
 - [ ] Email templates for launch sequence
 
-### Friday: Early Access Program
-- [ ] Identify 10-20 power users from [target audience]
-- [ ] Send early access invites with specific asks
-- [ ] Set up private feedback channel
-- [ ] Document initial reactions and issues
+### Friday: Content Creation
+- [ ] Record 60-second demo video
+- [ ] Create 5 Product Hunt gallery images
+- [ ] Write 10 tweet variations
+- [ ] Prepare Reddit post drafts
+- [ ] Design carousel for LinkedIn
 
 ## Week -1: Pre-Launch Momentum
-### Monday: Waitlist Campaign
-- **Goal:** Build list of [specific number] interested users
-- **Tactics:** 
-  - Teaser posts on [relevant platforms]
-  - "Coming soon" landing page with value prop
-  - Early bird incentive: [specific offer]
+### Monday: Community Warming
+- [ ] Share "Building [product] - Day X" posts
+- [ ] Engage in target subreddits (no promotion)
+- [ ] Answer questions in Discord communities
+- [ ] Build relationships with micro-influencers
+- [ ] Goal: Be known before launch
 
 ### Tuesday-Wednesday: Community Warming
 - [ ] Engage in [specific subreddits/communities]
@@ -187,17 +222,19 @@ Create a detailed Launch Timeline following the proven 2-week pattern (Week -2, 
 - [ ] Build relationships with active members
 - [ ] Identify potential champions
 
-### Thursday: Product Hunt Preparation
-- [ ] Find hunter with 500+ followers
-- [ ] Prepare launch day messaging
-- [ ] Schedule team for launch day support
-- [ ] Create tracking spreadsheet for supporters
+### Thursday: Product Hunt & Tech Prep
+- [ ] Find hunter with 500+ followers (or use your account)
+- [ ] Upload all assets to PH draft
+- [ ] Create Slack/Discord launch alerts
+- [ ] Test payment flow 10x
+- [ ] Set up monitoring alerts
 
-### Friday: Final Preparations
-- [ ] Test all systems under load
-- [ ] Brief support team on FAQs
-- [ ] Schedule social media posts
-- [ ] Final email to waitlist
+### Friday: The 24-Hour Countdown
+- [ ] Email waitlist: "Launching Monday, you get 24h early access"
+- [ ] Discord announcement: "Big day Tuesday!"
+- [ ] Final load testing
+- [ ] Team briefing call
+- [ ] Pre-write support macros
 
 ## Launch Week: The Big 6 Distribution
 ### Monday - Soft Launch (Email + Website)
@@ -208,32 +245,52 @@ Create a detailed Launch Timeline following the proven 2-week pattern (Week -2, 
 - **4 PM:** Gather initial feedback
 - **Success Metric:** [X]% conversion from waitlist
 
-### Tuesday - Product Hunt Launch
-- **12:01 AM PST:** Go live on Product Hunt
-- **6 AM:** Team begins commenting/upvoting
-- **9 AM:** Reach out to network for support
-- **12 PM:** Mid-day push to email list
-- **3 PM:** Engage with every comment
-- **6 PM:** Final push for West Coast
-- **Success Metric:** Top 5 placement
+### Tuesday - Product Hunt Launch (Optimal Day)
+- **12:01 AM PST:** Go live (Tuesday = highest traffic)
+- **5 AM:** Post in Discord with direct link
+- **6 AM:** Share in 10+ Slack communities
+- **8 AM:** Twitter thread with screenshots
+- **10 AM:** Team responds to EVERY comment
+- **12 PM:** Email blast "We're live on PH!"
+- **2 PM:** LinkedIn post with backstory
+- **4 PM:** Reddit soft mention if doing well
+- **6 PM:** Final push in all channels
+- **Success Metric:** Top 5 (gets newsletter feature)
 
-### Wednesday - Reddit Activation
-- **Morning:** Post to [specific subreddit] with value-first approach
-- **Afternoon:** Engage with comments, provide helpful responses
-- **Evening:** Cross-post to related communities if well-received
-- **Success Metric:** [X] upvotes, positive sentiment
+### Wednesday - Reddit Domination
+- **9 AM EST:** Post to r/artificial with success story
+- **Title Formula:** "How I [specific achievement] in [timeframe] - [metric]"
+- **10 AM:** Post different angle to r/SaaS
+- **11 AM:** Share in niche subreddit
+- **All Day:** Respond to EVERY comment helpfully
+- **If asked:** Share link in comments, not post
+- **Success Metric:** 100+ upvotes = validation
 
-### Thursday - LinkedIn Thought Leadership
-- **Morning:** Publish detailed case study post
-- **Afternoon:** Engage with comments, connect with interested users
-- **Evening:** Direct outreach to [specific user type]
-- **Success Metric:** [X] meaningful conversations
+### Thursday - LinkedIn (If B2B) / AI Directories (If B2C)
+**B2B Track:**
+- **10 AM:** Publish "Lessons from launch week" post
+- **Include:** Real metrics, failures, learnings
+- **CTA:** "Happy to share what worked"
+- **DM:** 20 target customers personally
 
-### Friday - Twitter/X Momentum
-- **9 AM:** Launch recap thread with metrics
-- **12 PM:** Host Twitter Space on [relevant topic]
-- **3 PM:** Share customer success stories
-- **Success Metric:** [X] new followers, [Y] engagements
+**B2C Track:**
+- **Morning:** Submit to Futurepedia, AI Tool Hunt
+- **Include:** Video demo, discount code
+- **Afternoon:** Submit to 5 more directories
+- **Goal:** 3+ directory features by end of week
+
+### Friday - Victory Lap & Next Steps
+- **Morning:** Share week metrics transparently
+  - Signups: [Actual number]
+  - Revenue: [MRR if comfortable]
+  - Best channel: [What worked]
+  - Biggest surprise: [Learning]
+- **Afternoon:** Discord celebration event
+- **Evening:** Plan week 2 based on data
+- **Success Check:** 
+  - 1000+ signups = Scale what worked
+  - 500-1000 = Optimize messaging
+  - <500 = Pivot positioning weekend
 
 ## Post-Launch Week
 ### Monday: Analysis & Optimization
@@ -246,31 +303,84 @@ Create a detailed Launch Timeline following the proven 2-week pattern (Week -2, 
 - Fix what's broken
 - Build on momentum
 
-## Contingency Plans
-### If Below Target Traffic
-- Activate paid ads on [best performing channel]
-- Reach out to micro-influencers in [niche]
-- Create viral contest with [specific prize]
+## The Success Checklist
+### Week 1 Metrics (Data-Backed Benchmarks)
+- **Signups:** 1,000+ = Strong launch
+- **Discord members:** 500+ = Community traction  
+- **Product Hunt:** Top 5 = PR opportunities
+- **Reddit:** 100+ upvotes = Message resonates
+- **Paying customers:** 50+ = Product-market fit signal
 
-### If Overwhelmed by Demand
-- Implement queue system
-- Hire temporary support
-- Communicate transparently about delays
+### The Pivot Decision Tree
+**If <500 signups by Wednesday:**
+1. Check conversion funnel for breaks
+2. A/B test new headline (remove technical jargon)
+3. Emphasize outcome over features
+4. Add "No credit card required" if not present
+5. Simplify onboarding to <2 minutes
 
-### If Negative Feedback on [Common Concern]
-- Prepared response addressing concern
-- Show roadmap for improvement
-- Offer special support channel
+**If <50 Discord members:**
+1. You launched too early
+2. Spend 2 more weeks building community
+3. Share more valuable content
+4. Run community challenges
 
-Every action should be specific to ${context.productName} and ${context.primaryUserPersona}.`,
+**If negative feedback pattern:**
+1. Address within 24 hours publicly
+2. Ship fix within 72 hours
+3. Turn critics into advocates
+4. Document learnings openly
+
+## The 10 Commandments for ${context.productName}
+1. Never mention "GPT wrapper" or "AI-powered"
+2. Launch Tuesday/Wednesday (data proves it)
+3. Discord before product (community = moat)
+4. Problem-first messaging (65% higher conversion)
+5. Show, don't tell (GIFs > descriptions)
+6. Credit-based > Subscription for AI tools
+7. Week 1 pivot ready (have backup messaging)
+8. Respond to every comment/message
+9. Share real numbers (builds trust)
+10. Ship daily during launch week
+
+Every action tied to ${context.productName} helping ${context.primaryUserPersona} achieve ${context.coreValueProposition}.`,
 
     'platform-strategy': `${baseContext}
 
-Create a platform strategy using the Big 6 distribution channels, customized for the target audience.
+Create a platform strategy using data-backed distribution channels (Discord #1, Reddit #2 based on conversion data).
 
-# PLATFORM STRATEGY - THE BIG 6
+# PLATFORM STRATEGY - DATA-BACKED CHANNELS
 
-## 1. X/Twitter Strategy
+## 1. Discord Strategy (200M ARR Proven - Midjourney)
+### Community-First Approach
+- **Create Discord Server:** 2-4 weeks BEFORE launch
+- **Server Structure:**
+  - #announcements (product updates)
+  - #feedback (user input)
+  - #showcase (user results)
+  - #support (quick help)
+  - #general (community building)
+
+- **Growth Tactics:**
+  - Share valuable insights daily
+  - Host weekly office hours
+  - Create exclusive beta channel
+  - Reward active members with credits
+
+- **The Discord Test:** Post problem statement, need 50+ reactions in 24h to validate
+
+**Key Discord Servers to Join:**
+${context.productCategory?.includes('AI') || context.productCategory?.includes('dev') ?
+`- Midjourney (15M members)
+- Leonardo AI (creator tools)
+- Stable Foundation (technical)
+- AI Entrepreneurs
+- Your specific niche servers` :
+`- Relevant industry servers
+- Target audience communities
+- Complementary tool servers`}
+
+## 2. Reddit Strategy (1,328% Growth, 30% Higher Conversion)
 ${context.primaryUserPersona?.includes('developer') || context.productCategory?.includes('dev') ? 
 `### Developer Twitter Approach
 - **Key Hashtags:** #buildinpublic #indiehackers #javascript #ai #devtools
@@ -302,8 +412,20 @@ ${context.primaryUserPersona?.includes('developer') || context.productCategory?.
 2. "The problem with [current solution] is [specific issue]. Here's how we solved it: [approach]"
 3. "[Impressive metric] achieved by beta users. Here's what they're saying: [quote]"
 
-## 2. LinkedIn Strategy
-### Professional Network Approach
+## 4. X/Twitter Strategy (Declining but Still Relevant)
+### Quick-Win Approach
+- **Focus:** Build in public updates
+- **Frequency:** 2-3 times daily during launch
+- **Format:** Thread with progress + GIFs
+- **Never:** Mention GPT/Claude in posts
+- **Always:** Show results, not features
+
+**Hook Templates:**
+1. "Just helped a user [specific achievement] in [time]. Here's how:"
+2. "The problem with [current solution]: [specific issue]. We fixed it:"
+3. "Day [X] of launch: [metric] users, biggest learning: [insight]"
+
+## 5. LinkedIn Strategy (B2B Only)
 - **Content Types:**
   - Long-form case studies (1500+ words)
   - Data-driven insights posts
@@ -327,8 +449,8 @@ Results so far:
 
 [Call to action]"
 
-## 3. Product Hunt Strategy
-### Launch Day Domination
+## 3. Product Hunt Strategy (Tuesday/Wednesday Optimal)
+### Data-Backed Launch Approach
 - **Pre-Launch (1 week before):**
   - Build list of 50+ supporters
   - Create assets (gallery, GIF, description)
@@ -340,32 +462,49 @@ Results so far:
   - Email blast at 6 AM, 12 PM, 5 PM
 - **Success Factors:** Clear value prop, compelling visuals, active engagement
 
-## 4. Reddit Strategy
-### Community-First Approach
-**Target Subreddits:**
+### The Reddit Playbook
+**High-Converting Subreddits:**
+- r/artificial (500k members, AI-friendly)
+- r/SaaS (300k members, buyer intent)
 ${context.primaryUserPersona?.includes('developer') ? 
-`- r/programming (technical discussions)
-- r/webdev (if web-related)
-- r/artificial (AI products)
-- r/${context.productName?.toLowerCase().replace(/\s+/g, '')} (create dedicated sub)` :
-`- r/entrepreneur (business focus)
-- r/SaaS (software products)
-- r/productivity (efficiency tools)
-- r/smallbusiness (SMB focus)`}
+`- r/programming (4M members)
+- r/webdev (2M members)` :
+`- r/entrepreneur (3M members)
+- r/productivity (1M members)`}
+- Niche: r/${context.productCategory?.toLowerCase().replace(/\s+/g, '') || 'relevant'}
 
-**Content Strategy:**
-- Lead with value, not promotion
-- Share actionable insights
-- Respond helpfully to questions
-- Follow 9:1 rule (9 helpful comments per 1 mention)
+**The Winning Post Formula:**
+Title: How I [achieved specific outcome] using [method] - [impressive metric]
 
-**Example Post:**
-"How we [specific achievement] - A technical deep dive"
-[Detailed, valuable content]
-[Soft mention of product at end]
+Body:
+1. Personal struggle story (2 paragraphs)
+2. Failed attempts with other solutions
+3. The 'aha' moment
+4. Step-by-step solution
+5. Results with numbers
+6. "Built a tool to automate this"
+7. Link in comments if people ask
 
-## 5. Email Strategy  
-### Direct Relationship Building
+**Timing:** Wednesday 9 AM EST (peak engagement)
+**Success Metric:** 100+ upvotes = strong signal
+
+## 6. AI Directories Strategy (Hidden Gems)
+### High-Intent Traffic Sources
+**Top Directories:**
+- Futurepedia (500k+ monthly visitors)
+- There's An AI For That
+- AI Tool Hunt
+- SaaS AI Tools
+- AI Agents Directory
+
+**Submission Tips:**
+- Submit within 48h of launch
+- Use video demos (3x higher CTR)
+- Highlight unique use case
+- Include discount code
+- Update weekly with new features
+
+**Success Metric:** 50+ upvotes = featured placement
 - **List Building:**
   - Exit intent popup: "Get our [specific valuable resource]"
   - Content upgrades on blog posts
@@ -392,8 +531,16 @@ Worth a quick look? [Link to personalized demo]
 
 [Your name]"
 
-## 6. Website/SEO Strategy
-### Organic Growth Engine
+## Email + SEO Strategy (Foundation)
+### Long-Term Growth Engine
+
+**Email Strategy:**
+- **The Credit Hook:** "Get 10k free credits monthly"
+- **Waitlist Builder:** "Launch week exclusive: 2x credits"
+- **Segmentation:** By use case, not demographics
+- **Automation:** Welcome series → Feature tips → Upgrade prompts
+
+**SEO Quick Wins:**
 - **Target Keywords:**
   - "[problem] solution" (high intent)
   - "[competitor] alternative" (comparison)
@@ -417,68 +564,135 @@ Worth a quick look? [Link to personalized demo]
 4. **Twitter → Product Hunt:** Mobilize followers for launch
 5. **Email → All Channels:** Coordinate messaging across platforms
 
-## Channel Prioritization
-Based on ${context.productName} and ${context.primaryUserPersona}:
-1. **Primary (60% effort):** [Top 2 channels]
-2. **Secondary (30% effort):** [Next 2 channels]  
-3. **Maintenance (10% effort):** [Remaining channels]
+## Channel Prioritization (Data-Backed Order)
+${context.primaryUserPersona?.includes('developer') || context.productCategory?.includes('technical') ?
+`1. **Discord** (40% effort) - Community before product
+2. **Reddit** (25% effort) - r/programming, r/artificial
+3. **Product Hunt** (15% effort) - Tuesday launch
+4. **Twitter/X** (10% effort) - Build in public
+5. **AI Directories** (10% effort) - Passive traffic` :
+context.primaryUserPersona?.includes('business') || context.primaryUserPersona?.includes('enterprise') ?
+`1. **LinkedIn** (30% effort) - Thought leadership
+2. **Discord** (25% effort) - Private community
+3. **Product Hunt** (20% effort) - Credibility
+4. **Email** (15% effort) - Direct sales
+5. **SEO** (10% effort) - Long-term` :
+`1. **Discord** (35% effort) - Build community first
+2. **Reddit** (30% effort) - Viral potential
+3. **Product Hunt** (15% effort) - One-day spike
+4. **AI Directories** (10% effort) - Consistent traffic
+5. **Twitter/X** (10% effort) - Updates only`}
 
-Focus resources where ${context.primaryUserPersona} actually spends time.`,
+## The 4-Week Launch Timeline (Proven)
+**Week -4:** Create Discord, start daily value posts
+**Week -3:** Soft launch to Discord for feedback
+**Week -2:** Build waitlist with "10k free credits" hook
+**Week -1:** Recruit PH hunters, prep all assets
+
+**Launch Week:**
+- Monday: Email blast "24h early access"
+- Tuesday: Product Hunt launch 12:01 AM PST
+- Wednesday: Reddit posts (different angles)
+- Thursday: LinkedIn thought leadership
+- Friday: Week recap in Discord
+
+**Success Metrics:**
+- Week 1: 1,000+ signups = strong launch
+- <500 signups = pivot messaging immediately
+- Discord: 100+ active members pre-launch`,
 
     'content-templates': `${baseContext}
 
-Create ready-to-use content using the Hook Formula: [Problem] + [Time/Cost Saved] + [Unique Method]
+Create ready-to-use content following the Problem-First Positioning (65% higher adoption).
 
-# CONTENT TEMPLATES
+# CONTENT TEMPLATES - NO AI MENTIONS
 
-## The Hook Formula
-Core Hook: "${context.painPoints || 'Problem'} + ${context.coreValueProposition || 'Solution'} + [Specific Method]"
+## The Winning Hook Formula
+**Structure:** [Specific Pain] → [Time/Money Saved] → [Without Complexity]
 
-Example variations:
-1. "Turn [input] into [output] in [timeframe] with [unique approach]"
-2. "Cut [cost/time] by [percentage] using [specific method]"
-3. "[Achieve outcome] without [common pain point] using [product]"
+**${context.productName} Hooks:**
+1. "${context.painPoints || 'Problem'} → Save ${context.coreValueProposition?.includes('hour') ? '2 hours daily' : '$1000s monthly'}"
+2. "Turn ${context.productCategory} work from hours into seconds"
+3. "${context.coreValueProposition} without ${context.competitiveLandscape ? 'the complexity of ' + context.competitiveLandscape : 'technical knowledge'}"
+
+**NEVER Say:**
+❌ "AI-powered tool for..."
+❌ "GPT-4 wrapper that..."
+❌ "Revolutionary AI solution..."
+❌ "Leveraging artificial intelligence..."
+
+**ALWAYS Say:**
+✅ "Turn [X] into [Y] in 30 seconds"
+✅ "Cut [specific cost] by 67%"
+✅ "[Outcome] without [pain point]"
+✅ "The fastest way to [result]"
 
 ## Social Media Templates
 
-### Twitter/X Thread (Viral Format)
+### Twitter/X Thread (Build in Public Format)
 **Thread Starter:**
-"How ${context.productName} helps ${context.primaryUserPersona} ${context.coreValueProposition} in [specific timeframe]:
+"We just hit ${context.productStage === 'beta' ? '100 beta users' : '1000 signups'} for ${context.productName}.
 
-A thread 🧵"
+Here's exactly how we ${context.coreValueProposition}:
+
+(real numbers inside 🧵)"
 
 **Thread Body:**
-"1/ The problem: [Specific pain point with real example]
+"1/ The problem we kept hearing:
+${context.painPoints || 'Users spending hours on repetitive tasks'}
 
-2/ Current solutions: [Why they fall short]
+This costs companies $[specific amount] yearly.
 
-3/ Our approach: [Unique method/insight]
+2/ We tried [existing solution] but:
+- Too complex
+- Too expensive  
+- Didn't solve [specific issue]
 
-4/ Results so far: [Specific metrics/testimonials]
+3/ So we built a simple solution:
+- [Feature 1]: [Specific benefit]
+- [Feature 2]: [Time saved]
+- [Feature 3]: [Cost reduced]
 
-5/ How it works: [Simple 3-step explanation]
+4/ Early results after 30 days:
+📈 [Specific metric]
+⏱️ Average time saved: [X hours]
+💰 Average cost reduced: [$X]
+😊 NPS score: [X]
 
-6/ What users say: [Powerful quote]
+5/ How to get started:
+1. [Simple step]
+2. [Simple step]
+3. [Get result]
 
-7/ Try it yourself: [Link with specific CTA]"
+Takes <5 minutes.
 
-### LinkedIn Posts (5 Professional Templates)
+6/ We're giving away 10k credits free:
+[Link]
 
-**Template 1 - Problem/Solution Story:**
-"I talked to 50+ ${context.primaryUserPersona} last month.
+(limiting to first 1000 users)"
 
-The #1 problem they face? ${context.painPoints}
+### LinkedIn Posts (Data-Driven Templates)
 
-Existing solutions ${context.competitiveLandscape ? 'like ' + context.competitiveLandscape : ''} don't work because [specific reason].
+**Template 1 - The Success Metrics Post:**
+"After 30 days of building ${context.productName}, here are the real numbers:
 
-So we built ${context.productName} to [specific solution].
+📊 Users: [X]
+⏱️ Average time saved: [Y hours/week]
+💰 Average money saved: [$Z/month]
+🔄 Daily active users: [%]
 
-Early results:
-• [Metric 1]
-• [Metric 2]
-• [Metric 3]
+Biggest surprise? ${context.primaryUserPersona} use it for [unexpected use case].
 
-[Call to action with link]"
+Biggest challenge? [Honest struggle].
+
+What's working:
+• [Specific feature] drives 60% of usage
+• [Specific channel] brings highest quality users
+• [Specific message] converts at 15%
+
+What would you want to know about building [category] tools?
+
+#SaaS #BuildInPublic #[Industry]"
 
 **Template 2 - Case Study Format:**
 "Case Study: How [Customer Type] saved [specific metric] using ${context.productName}
@@ -625,42 +839,44 @@ All templates are customized for ${context.productName} targeting ${context.prim
 
     'metrics-dashboard': `${baseContext}
 
-Create a comprehensive playbook including metrics, pricing strategy, and launch assets.
+Create a comprehensive playbook with data-backed pricing, metrics, and execution plans.
 
 # METRICS & EXECUTION DASHBOARD
 
-## Pricing Strategy
+## Credit-Based Pricing (41% of Successful AI Companies)
 
-### Recommended Model: ${context.monetizationModel === 'freemium' ? 'Freemium' : context.monetizationModel === 'subscription' ? 'SaaS Trial' : 'Custom'}
-${context.primaryUserPersona?.toLowerCase().includes('business') || context.primaryUserPersona?.toLowerCase().includes('enterprise') ?
-`#### B2B Pricing Structure
-**14-Day Free Trial → Paid Plans**
-- **Starter:** $49/month (1-5 users, core features)
-- **Professional:** $149/month (6-20 users, advanced features)
-- **Enterprise:** $499/month (unlimited users, white-label, API)
-- **Annual Discount:** 20% off (2.4 months free)
+### The Winning Model for ${context.productName}
+**Credit System (Best for AI Tools):**
+- **Free Tier:** 10,000 credits/month forever
+- **Starter:** $19/month = 100,000 credits
+- **Professional:** $49/month = 500,000 credits  
+- **Business:** $99/month = 2,000,000 credits
+- **Enterprise:** $299/month = unlimited credits
 
-**Value Anchoring:**
-- Compare to employee hours saved
-- ROI calculator on pricing page
-- Case studies showing 10x returns` :
-`#### B2C/Developer Pricing Structure  
-**Freemium Model**
-- **Free Forever:** [Specific limits - e.g., 100 API calls/month]
-- **Pro:** $29/month (unlimited usage, priority support)
-- **Team:** $99/month (5 seats, collaboration features)
-- **Annual Discount:** 20% off
+**Credit Usage Examples:**
+- Basic [action]: 10 credits
+- Advanced [action]: 50 credits
+- Premium [action]: 100 credits
 
-**Psychological Triggers:**
-- Most popular badge on Pro
-- Limited-time launch pricing
-- Usage-based fair pricing`}
+**Why Credits Work:**
+✓ 17% trial-to-paid vs 5% traditional freemium
+✓ Users understand value immediately
+✓ Natural upgrade path when they run out
+✓ Reduces "unlimited" abuse
 
-### Offer Optimization
-- **Launch Special:** ${context.productStage === 'beta' ? '50% off for beta users (lifetime)' : '30% off first 3 months'}
-- **Urgency:** "Launch pricing ends [date]"
-- **Risk Reversal:** ${context.monetizationModel === 'subscription' ? '30-day money-back guarantee' : 'No credit card required'}
-- **Social Proof:** "Join [X] ${context.primaryUserPersona} already using ${context.productName}"
+### Hybrid Alternative (If High API Costs)
+**Base + Usage Model:**
+- **Free:** 1,000 credits/month
+- **Starter:** $29/month + $0.01 per extra credit
+- **Pro:** $99/month + $0.005 per extra credit
+- **Volume discounts** at 1M+ credits
+
+### Launch Week Offers (Data-Backed)
+- **Discord Exclusive:** "First 100 members get 2x credits for life"
+- **Product Hunt Special:** "PH users get 50k bonus credits"
+- **Week 1 Only:** "Early adopters lock in 40% off forever"
+- **Referral Bonus:** "Give 5k, Get 5k credits per referral"
+- **No CC Required:** Always. 87% higher signup rate.
 
 ## Launch Asset Checklist
 
@@ -685,100 +901,145 @@ ${context.primaryUserPersona?.toLowerCase().includes('business') || context.prim
 - [ ] Status page: status.${context.productName?.toLowerCase().replace(/\s+/g, '')}.com
 - [ ] Documentation: Getting started guide
 
-## Key Metrics (The Big 5)
+## Success Metrics (Data-Backed Benchmarks)
 
-### 1. Activation Rate
-**Definition:** % of signups who ${context.coreValueProposition ? 'achieve first ' + context.coreValueProposition : 'complete key action'}
-**Target:** ${context.primaryUserPersona?.includes('developer') ? '40%' : '60%'} within 24 hours
-**Tracking:** Custom event when user [specific action]
+### Week 1: The Only Metrics That Matter
+**1. Total Signups**
+- Day 1: 100+ (soft launch to email/Discord)
+- Day 2: 500+ (Product Hunt launch)
+- Day 7: 1,000+ total
+- **<500 by day 3 = PIVOT messaging**
 
-### 2. Time to Value (TTV)
-**Definition:** Minutes from signup to "aha moment"
-**Target:** Under ${context.productCategory?.includes('simple') || context.productCategory?.includes('easy') ? '5 minutes' : '30 minutes'}
-**Optimization:** Streamline onboarding, remove friction
+**2. Activation (Key Action Completion)**
+- Target: 40% complete [core action] in first session
+- If <25%: Simplify onboarding immediately
+- Track: Time to first [value moment]
 
-### 3. Daily Active Users (DAU)
-**Week 1 Targets:**
-- Day 1: 50-100 users
-- Day 3: 200-500 users  
-- Day 7: 500-1000 users
-**Growth Rate:** 20-30% daily during launch
+**3. Daily Active Users**
+- Day 1-3: 20% DAU/Signups
+- Day 4-7: 15% DAU/Signups
+- Week 2+: 13% DAU/MAU minimum
 
-### 4. Conversion Rate
-**Funnel:** Visitor → Signup → Trial/Free → Paid
-**Benchmarks:**
-- Visitor → Signup: 3-5%
-- Signup → Trial: ${context.monetizationModel === 'freemium' ? '100%' : '60-80%'}
-- Trial → Paid: ${context.primaryUserPersona?.includes('business') ? '15-25%' : '2-5%'}
+**4. Credit Usage (Health Indicator)**
+- Free users: 20% use >50% of credits
+- Shows real engagement vs tire kickers
+- Predictor of future paid conversion
 
-### 5. Revenue Metrics
-- **MRR Growth:** Track daily during launch
-- **ARPU:** $${context.pricingSignals?.match(/\d+/)?.[0] || '50'} target
-- **CAC Payback:** Under 3 months
-- **LTV:CAC Ratio:** Aim for 3:1
+**5. Revenue Metrics**
+- Week 1: 50+ paid customers ($1-3k MRR)
+- Month 1: 100+ paid ($5-10k MRR)  
+- Month 3: $10k+ MRR or pivot
+- Credit ARPU: $40-60 typical
 
-## Launch Week Dashboard
+## The Launch Week Playbook
 
-### Real-Time Monitoring
-**Every 2 Hours Check:**
-- Signup velocity and source
-- Error rates and performance
-- Support ticket themes
-- Social sentiment
+### Daily Standup (9 AM)
+**Track & Share:**
+1. Yesterday's numbers vs target
+2. Top feedback theme (1 sentence)
+3. Biggest bottleneck
+4. Today's #1 priority
+5. Help needed from team
 
-### Daily Review (6 PM)
-1. **Numbers:** Compare to daily targets
-2. **Feedback:** Categorize user comments
-3. **Channels:** Identify top performers
-4. **Tomorrow:** Adjust tactics based on data
+### The 2-Hour Check (Every 2 Hours)
+- **Signups:** Run rate vs daily goal
+- **Activation:** % completing first action
+- **Discord:** New members & activity
+- **Support:** Any repeated issues?
+- **Servers:** Load and performance
 
-### Success Criteria
-**Green Light (exceeding targets):**
-- Scale winning channels
-- Increase ad spend
-- Accelerate content schedule
+### Channel Performance Tracking
+**Measure Everything:**
+- Discord: Daily active members
+- Reddit: Upvotes & comments
+- PH: Rank & engagement
+- Twitter: Impressions & clicks
+- Email: Open & click rates
+- **Winner:** Double down immediately
 
-**Yellow Light (meeting targets):**
-- Maintain current efforts
-- Test new channels
-- Gather more feedback
+### The Pivot Decision (Wednesday 6 PM)
+**If <500 signups:**
+1. Emergency team meeting
+2. Review all feedback
+3. Pick ONE of these:
+   - Simplify value prop
+   - Change main hook
+   - Target different persona
+   - Add urgency/scarcity
+4. Ship new messaging by Thursday AM
 
-**Red Light (below targets):**
-- Diagnose bottlenecks
-- Simplify onboarding
-- Increase direct outreach
-- Consider pivot in messaging
+## The 10 Commandments (Proven by Data)
 
-## Contingency Plans
+1. **Never mention AI/GPT** - Users don't care about tech
+2. **Launch Tuesday/Wednesday** - 37% more traffic
+3. **Credits > Subscriptions** - 17% vs 5% conversion
+4. **Discord before product** - Community = retention
+5. **Problem-first copy** - 65% higher conversion
+6. **Show, don't tell** - GIFs get 3x engagement
+7. **Price at $19-49** - Sweet spot for prosumers
+8. **Pivot by day 3** - Don't wait if <500 signups
+9. **Ship daily** - Momentum > perfection
+10. **Share real numbers** - Transparency builds trust
 
-### If Conversion Below Target
-1. **Immediate:** Add exit intent survey
-2. **Day 2:** Simplify signup flow
-3. **Day 3:** Test new value proposition
-4. **Day 4:** Offer extended trial
+## Quick Win Tactics
 
-### If Servers Overloaded
-1. **Immediate:** Scale infrastructure
-2. **Communication:** Status page update
-3. **Waitlist:** Convert to exclusive access
-4. **PR:** "Overwhelming demand" story
+### If Low Signups
+- Add "10k free credits" to headline
+- Remove all technical jargon
+- Simplify to 1-step signup
+- Add social proof numbers
+- Create FOMO: "First 1000 users only"
 
-### If Negative Feedback on [Specific Concern]
-1. **Acknowledge:** Public response within 2 hours
-2. **Fix:** Ship improvement within 48 hours
-3. **Follow-up:** Personal reach out to critics
-4. **Document:** Add to roadmap publicly
+### If Low Activation  
+- Add interactive demo
+- Pre-fill with sample data
+- Reduce to 1 click to value
+- Add progress bar
+- Send "Quick win" email
 
-## Tools Setup
-**Pre-Launch Setup:**
-- [ ] Google Analytics 4 with conversion tracking
-- [ ] Mixpanel/Amplitude for product analytics  
-- [ ] Hotjar for user recordings
-- [ ] Stripe with revenue tracking
-- [ ] Customer.io for email automation
-- [ ] Slack webhooks for real-time alerts
+### If Low Revenue
+- Show credit usage clearly
+- Add "Running low" warnings
+- Offer one-time credit packs
+- Create usage-based urgency
+- Add team/referral incentives
 
-Every metric and action tied specifically to ${context.productName} and ${context.primaryUserPersona} success.`
+## Launch Stack (Copy This)
+
+### Technical (1 Day Setup)
+- **Analytics:** Posthog (free tier)
+- **Payments:** Stripe with usage billing
+- **Email:** Resend.com (cheap + API)
+- **Support:** Discord (community support)
+- **Monitoring:** Vercel Analytics
+- **Status:** status.site (free)
+
+### Growth Tools
+- **Waitlist:** LaunchList or custom
+- **Referrals:** ReferralCandy
+- **Social Proof:** Testimonial.to
+- **Email Capture:** Exit intent popup
+- **Analytics:** Microsoft Clarity (free)
+
+### Content Distribution
+- **Discord:** Carl-bot for onboarding
+- **Reddit:** Later for Reddit
+- **Twitter:** Typefully for threads
+- **LinkedIn:** Native scheduler
+- **Cross-post:** Buffer (free tier)
+
+## Your Specific Launch Plan for ${context.productName}
+
+**Week -4:** Create "${context.productCategory} Builders" Discord
+**Week -3:** Soft launch to Discord with 50% off lifetime
+**Week -2:** Build waitlist with "10k free credits" hook
+**Week -1:** Recruit PH hunter, prep all assets
+
+**Launch Hook:** "${context.coreValueProposition} without ${context.painPoints?.split('.')[0] || 'the complexity'}"
+
+**Success Metric:** 1,000 users who ${context.coreValueProposition} in week 1
+
+**If <500:** Pivot to "${context.productCategory} Assistant" positioning`
   };
 
   const prompt = prompts[step];

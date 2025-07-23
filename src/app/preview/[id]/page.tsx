@@ -5,16 +5,16 @@ import { useParams, useRouter } from 'next/navigation';
 
 const MARKETING_BLOCKS = [
   {
-    id: 'context-extraction',
-    title: 'Context Extraction',
-    icon: '🔍',
-    description: 'AI extracts your product DNA to create a foundation for everything else',
+    id: 'discord-community',
+    title: 'Discord Community Strategy',
+    icon: '💬',
+    description: 'Build your community BEFORE launch (200M ARR proven - Midjourney)',
     details: [
-      'Product category and core value proposition',
-      'Target market size and competitive landscape',
-      'Current development stage and timeline',
-      'Monetization model and pricing signals',
-      'Technical complexity and user onboarding needs'
+      'Week -4: Create and grow Discord server',
+      'Community-first validation approach',
+      'Daily engagement tactics that work',
+      'Convert members to beta testers',
+      'The Discord Test: 50+ reactions = valid idea'
     ]
   },
   {
@@ -32,54 +32,55 @@ const MARKETING_BLOCKS = [
   },
   {
     id: 'launch-timeline',
-    title: '7-Day Launch Timeline',
+    title: '4-Week Launch Timeline',
     icon: '📅',
-    description: 'Step-by-step daily action plan from pre-launch to post-launch',
+    description: 'Data-backed timeline: Discord → Waitlist → Launch → Scale',
     details: [
-      'Pre-launch prep checklist (48 hours before)',
-      'Day 1-2: Soft launch and early feedback collection',
-      'Day 3-4: Targeted outreach and community engagement',
-      'Day 5-6: Product Hunt or major platform launch',
-      'Day 7: Analysis and next phase planning'
+      'Week -4: Discord community building',
+      'Week -3: Soft launch for feedback',
+      'Week -2: Waitlist with 10k credit hook',
+      'Week -1: Asset prep and hunter recruitment',
+      'Launch Week: Tuesday PH, Wednesday Reddit'
     ]
   },
   {
     id: 'platform-strategy',
-    title: 'Platform Strategy',
+    title: 'The Big 6 Channels',
     icon: '🎯',
-    description: 'Channel-specific tactics tailored to where your users actually hang out',
+    description: 'Priority channels based on real conversion data',
     details: [
-      'Twitter/X strategy with hashtags and engagement tactics',
-      'LinkedIn approach for B2B products',
-      'Reddit communities and posting guidelines',
-      'Discord/Slack community engagement plan',
-      'Direct outreach templates and target lists'
+      '#1 Discord: 200M ARR without VC',
+      '#2 Reddit: 1,328% growth proven',
+      '#3 Product Hunt: Tuesday optimal',
+      '#4 Twitter/X: Declining but relevant',
+      '#5 LinkedIn: B2B thought leadership',
+      '#6 AI Directories: Hidden traffic gems'
     ]
   },
   {
     id: 'content-templates',
-    title: 'Content Templates',
+    title: 'No-AI Content Templates',
     icon: '✍️',
-    description: 'Ready-to-copy templates for tweets, DMs, posts, and landing pages',
+    description: 'Problem-first hooks (65% higher conversion - never mention AI)',
     details: [
-      '10+ tweet variations for different audiences',
-      'Personalized DM templates for outreach',
-      'Community post templates (Reddit, Discord, etc.)',
-      'Landing page headlines and copy blocks',
-      'Email templates for user feedback and updates'
+      'Hook Formula: Problem → Saved → Without complexity',
+      'Twitter threads that show real metrics',
+      'Reddit posts: Personal story + value first',
+      'LinkedIn: Data-driven success posts',
+      'Email: Credit-based incentive copy'
     ]
   },
   {
-    id: 'metrics-dashboard',
-    title: 'Metrics Dashboard',
-    icon: '📊',
-    description: 'Daily tracking plan with success criteria and contingency plans',
+    id: 'pricing-metrics',
+    title: 'Credit Pricing & Metrics',
+    icon: '💳',
+    description: 'Credit-based model (17% conversion vs 5% freemium)',
     details: [
-      'Key metrics to track each day (traffic, signups, usage)',
-      'Success benchmarks for each launch phase',
-      'Warning signs and when to pivot tactics',
-      'Tools for tracking (analytics, social monitoring)',
-      'Weekly review checklist and next steps'
+      '10k free credits/month forever',
+      '$19-49 starter tiers proven optimal',
+      'Week 1: 1000+ signups or pivot',
+      'Discord exclusive: 2x credits for life',
+      'The 10 commandments of AI launches'
     ]
   }
 ];
