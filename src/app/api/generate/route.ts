@@ -175,7 +175,7 @@ async function generatePlaybook(markdown: string, context: any): Promise<string>
     uniqueAdvantages = ''
   } = context;
 
-  const prompt = `You are a launch strategy expert. Create a HIGHLY SPECIFIC and ACTIONABLE launch playbook based on the following AI product.
+  const prompt = `You are a launch strategy expert specializing in go-to-market strategies. Create a comprehensive launch playbook covering these 6 critical areas:
 
 ## Extracted Context
 - **Product:** ${productName} - ${productDescription}
@@ -193,94 +193,216 @@ async function generatePlaybook(markdown: string, context: any): Promise<string>
 ## Full Product Documentation
 ${markdown}
 
-Create a comprehensive launch playbook that includes:
+Create a comprehensive launch playbook covering these 6 critical areas:
 
 # Launch Playbook for ${productName}
 
-## Executive Summary
-- Brief overview tailored to ${productStage} stage
-- Key value propositions for ${primaryUser} users
-- Realistic goals based on ${teamSize} team
+## 1. USER PERSONA
+Create 3 detailed user personas for ${primaryUser} market:
 
-## Pre-Launch Strategy (Weeks 1-4)
-### Market Research & Validation
-- Specific research tactics for ${primaryUser} audience
-- Competitor analysis of ${competitors || 'similar products'}
-- Positioning strategy for ${marketSize} market
+### Primary Persona
+- Demographics
+- Job title/role
+- Daily challenges
+- Goals and motivations
+- Where they hang out online
+- Decision-making process
+- Budget authority
 
-### Product Readiness
-- Critical features for ${primaryUser} users
-- MVP vs full feature decisions based on ${productStage}
-- Documentation priorities
+### Secondary Personas
+- Alternative user types
+- Different use cases
+- Varying sophistication levels
 
-### Team Preparation
-- Role distribution for ${teamSize} team
-- Key skills needed
-- Contingency planning
+## 2. POSITIONING
+### Positioning Statement
+Create a clear positioning using this framework:
+"For [target customer] who [statement of need], ${productName} is a [product category] that [key benefit]. Unlike [primary competitive alternative], our product [key differentiator]."
 
-## Launch Strategy (Launch Week)
+### Competitive Positioning Map
+- Position vs ${competitors || 'alternatives'}
+- Key differentiators
+- Unique value proposition
+- Market gaps you fill
+
+## 3. BRAND MARKETING
+### Brand Strategy
+- Brand personality traits
+- Voice and tone guidelines
+- Visual identity direction
+- Core brand values
+
+### Brand Messaging Hierarchy
+- Tagline options
+- Elevator pitch (30 seconds)
+- One-paragraph description
+- Full brand story
+
+## 4. MARKETING COPY
+### Website Copy
+#### Hero Section
+- Headline (7-10 words)
+- Subheadline (15-20 words)
+- CTA button text
+
+#### Features Section
+- 3 key features with:
+  - Feature name
+  - Benefit-focused description
+  - Use case example
+
+#### Social Proof Section
+- Types of proof to collect
+- Testimonial templates
+- Case study structure
+
+### Email Copy Templates
+- Welcome email
+- Feature announcement
+- Re-engagement campaign
+
+## 5. USER ACQUISITION
 ### Channel Strategy for ${primaryUser} Audience
-${primaryUser === 'developer' ? `- Hacker News launch post
-- GitHub repository optimization
-- dev.to article series
-- Reddit (r/programming, r/MachineLearning)
-- Twitter developer community` : 
-primaryUser === 'business' ? `- ProductHunt launch
-- LinkedIn thought leadership
-- Industry publication outreach
-- Webinar/demo strategy
-- Cold email campaigns` :
-primaryUser === 'consumer' ? `- Social media campaigns
-- Influencer partnerships
-- App store optimization
-- Content marketing
-- Community building` :
-`- Mixed channel approach
-- Community identification
-- Content strategy`}
+${primaryUser === 'developer' ? `
+#### Developer Channels
+1. **Hacker News**
+   - Post title formula
+   - Optimal posting time
+   - Comment strategy
 
-### Launch Sequence
-- Soft launch tactics for ${teamSize} team
-- Main announcement timing
-- Follow-up campaigns
+2. **GitHub**
+   - README optimization
+   - Community engagement
+   - Open source strategy
 
-## Growth Strategy (Post-Launch)
-### Based on ${monetization} Model
-${monetization === 'free' ? `- Focus on user acquisition
-- Community building
-- Future monetization planning` :
-monetization === 'freemium' ? `- Free tier optimization
-- Conversion funnel design
-- Premium feature highlights` :
-monetization === 'subscription' ? `- Trial optimization
-- Onboarding flow
-- Retention strategies` :
-`- Pricing validation
-- Revenue optimization
-- Customer feedback loops`}
+3. **Developer Communities**
+   - Reddit: r/programming, r/${productName.toLowerCase().replace(/\s+/g, '')}
+   - dev.to article topics
+   - Discord/Slack communities
 
-### Metrics & KPIs
-- Specific metrics for ${productStage} stage
-- ${targetMetrics ? `Focus on: ${targetMetrics}` : 'Standard SaaS metrics'}
-- Weekly tracking plan
+4. **Technical Content**
+   - Tutorial series plan
+   - API documentation
+   - Code examples` : 
+primaryUser === 'business' ? `
+#### Business Channels
+1. **LinkedIn Strategy**
+   - Thought leadership topics
+   - Post frequency
+   - Engagement tactics
 
-## Resource Allocation
-### For ${teamSize} Team
-- Task prioritization
-- Automation opportunities
-- Outsourcing decisions
+2. **ProductHunt Launch**
+   - Pre-launch preparation
+   - Launch day tactics
+   - Post-launch momentum
 
-## Risk Mitigation
-- Common pitfalls for ${primaryUser} market
-- Contingency plans
-- Crisis communication
+3. **B2B Outreach**
+   - Cold email templates
+   - Webinar topics
+   - Partnership opportunities
 
-## 30-60-90 Day Plan
-- Specific milestones
-- Resource requirements
-- Success criteria
+4. **Content Marketing**
+   - Whitepaper topics
+   - Case study framework
+   - ROI calculators` :
+primaryUser === 'consumer' ? `
+#### Consumer Channels
+1. **Social Media**
+   - Platform priorities
+   - Content calendar
+   - Influencer outreach
 
-Remember to be EXTREMELY specific with tactics, channels, and actions based on the extracted context.`;
+2. **Paid Advertising**
+   - Ad copy variations
+   - Targeting parameters
+   - Budget allocation
+
+3. **Viral Mechanisms**
+   - Referral program design
+   - Social sharing features
+   - Community building` :
+`#### Mixed Audience Approach
+1. **Content Strategy**
+   - Blog post topics
+   - Video content ideas
+   - Podcast opportunities
+
+2. **Community Building**
+   - Platform selection
+   - Engagement tactics
+   - Moderation guidelines`}
+
+### Acquisition Funnel
+- Awareness tactics
+- Consideration content
+- Conversion optimization
+- Retention strategies
+
+## 6. OFFER AUDIT
+### Pricing Strategy
+- Current: ${pricing || 'Not specified'}
+- Competitor pricing analysis
+- Value-based pricing recommendation
+- Pricing psychology tactics
+
+### Offer Structure
+${monetization === 'freemium' ? `
+#### Freemium Tiers
+- **Free Tier**
+  - Features included
+  - Usage limits
+  - Upgrade triggers
+  
+- **Paid Tiers**
+  - Tier names and pricing
+  - Feature differentiation
+  - Value justification` :
+monetization === 'subscription' ? `
+#### Subscription Plans
+- Plan names and pricing
+- Billing frequency options
+- Feature comparison
+- Upgrade incentives` :
+`#### Pricing Model
+- Recommended model for ${productStage}
+- Price points to test
+- Bundling opportunities
+- Promotional strategies`}
+
+### Launch Offers
+- Early bird discount
+- Beta user benefits
+- Referral incentives
+- Time-limited promotions
+
+### Objection Handling
+- Common objections
+- Response strategies
+- Risk reversal options
+- Social proof placement
+
+## Implementation Timeline
+### Week 1-2: Foundation
+- Finalize personas and positioning
+- Create brand guidelines
+- Write core marketing copy
+
+### Week 3-4: Channel Setup
+- Set up acquisition channels
+- Create content calendar
+- Prepare launch materials
+
+### Launch Week
+- Execute channel strategy
+- Monitor and optimize
+- Gather feedback
+
+### Post-Launch
+- Analyze performance
+- Iterate on messaging
+- Scale winning channels
+
+Be EXTREMELY specific and actionable based on the product context provided.`;
 
   try {
     const completion = await openai.chat.completions.create({
@@ -288,13 +410,17 @@ Remember to be EXTREMELY specific with tactics, channels, and actions based on t
       messages: [
         {
           role: 'system',
-          content: `You are a launch strategy expert. Create actionable, specific strategies based on the product context. 
+          content: `You are a go-to-market strategy expert specializing in product launches. 
           
-CRITICAL: 
-- Be very specific about channels and tactics for the identified user type
-- Consider team size and resources when making recommendations
-- Provide concrete examples and templates where helpful
-- Focus on what's realistic for their stage and timeline`
+CRITICAL INSTRUCTIONS:
+1. USER PERSONA: Create detailed, specific personas with names, backgrounds, and real pain points
+2. POSITIONING: Write the actual positioning statement, not just a template
+3. BRAND MARKETING: Provide specific brand personality traits (e.g., "Bold, Technical, Approachable")
+4. MARKETING COPY: Write actual copy, not just descriptions of what to write
+5. USER ACQUISITION: Give specific tactics with examples (e.g., "Post on HN at 9am PST on Tuesday")
+6. OFFER AUDIT: Recommend specific price points and offer structures
+
+Make everything actionable and specific to their product, not generic advice.`
         },
         {
           role: 'user',
