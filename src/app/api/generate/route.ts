@@ -163,9 +163,18 @@ Return ONLY the JSON object, no other text.`;
 
     const response = completion.choices[0]?.message?.content || '{}';
     try {
-      return JSON.parse(response);
+      // Remove markdown code blocks if present
+      let cleanJson = response.trim();
+      if (cleanJson.startsWith('```json')) {
+        cleanJson = cleanJson.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+      } else if (cleanJson.startsWith('```')) {
+        cleanJson = cleanJson.replace(/^```\s*/, '').replace(/\s*```$/, '');
+      }
+      
+      return JSON.parse(cleanJson);
     } catch (e) {
       console.error('Failed to parse context JSON:', e);
+      console.error('Raw response:', response);
       return {};
     }
   } catch (error) {
