@@ -66,6 +66,74 @@ export default function AsyncGeneratePage() {
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [pollCount, setPollCount] = useState(0);
 
+  const startPolling = useCallback(async (jobId: string) => {
+    const poll = async (): Promise<boolean> => {
+      try {
+        setPollCount(prev => prev + 1);
+        
+        const response = await fetch(`/api/jobs/simple-status?id=${jobId}`);
+        const data: JobStatus = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to get job status');
+        }
+        
+        setJobStatus(data);
+        
+        // If completed, redirect to playbook
+        if (data.status === 'complete' && data.playbookUrl) {
+          // Clear session storage
+          if (typeof window !== 'undefined') {
+            sessionStorage.removeItem(`markdown-${sessionId}`);
+            sessionStorage.removeItem(`context-${sessionId}`);
+            sessionStorage.removeItem(`job-${sessionId}`);
+          }
+          
+          // Redirect to playbook
+          window.location.href = data.playbookUrl;
+          return false; // Stop polling
+        }
+        
+        // If failed, show error
+        if (data.status === 'failed') {
+          setError(data.error || 'Generation failed');
+          return false; // Stop polling
+        }
+        
+        return true; // Continue polling
+        
+      } catch (error) {
+        console.error('Polling error:', error);
+        setPollCount(prev => prev + 1);
+        
+        // Stop polling after too many failures
+        if (pollCount > 60) { // 5 minutes of polling
+          setError('Generation timed out. Please try again.');
+          return false;
+        }
+        return true; // Continue polling
+      }
+    };
+    
+    // Initial poll
+    const shouldContinue = await poll();
+    
+    if (shouldContinue) {
+      // Poll every 2 seconds
+      const pollInterval = setInterval(async () => {
+        const continuePolling = await poll();
+        if (!continuePolling) {
+          clearInterval(pollInterval);
+        }
+      }, 2000);
+      
+      // Return cleanup function
+      return () => clearInterval(pollInterval);
+    }
+    
+    return () => {}; // No cleanup needed
+  }, [pollCount, sessionId]);
+
   // Load job ID and start polling
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -85,70 +153,6 @@ export default function AsyncGeneratePage() {
     
     startPollingAsync();
   }, [sessionId, router, startPolling]);
-
-  const startPolling = useCallback(async (jobId: string) => {
-    let pollInterval: NodeJS.Timeout;
-    
-    const poll = async () => {
-      try {
-        setPollCount(prev => prev + 1);
-        
-        const response = await fetch(`/api/jobs/simple-status?id=${jobId}`);
-        const data: JobStatus = await response.json();
-        
-        if (!response.ok) {
-          throw new Error(data.error || 'Failed to get job status');
-        }
-        
-        setJobStatus(data);
-        
-        // If completed, redirect to playbook
-        if (data.status === 'complete' && data.playbookUrl) {
-          clearInterval(pollInterval);
-          
-          // Clear session storage
-          if (typeof window !== 'undefined') {
-            sessionStorage.removeItem(`markdown-${sessionId}`);
-            sessionStorage.removeItem(`context-${sessionId}`);
-            sessionStorage.removeItem(`job-${sessionId}`);
-          }
-          
-          // Redirect to playbook
-          window.location.href = data.playbookUrl;
-          return;
-        }
-        
-        // If failed, show error
-        if (data.status === 'failed') {
-          clearInterval(pollInterval);
-          setError(data.error || 'Generation failed');
-          return;
-        }
-        
-        // Continue polling if still processing
-        
-      } catch (error) {
-        console.error('Polling error:', error);
-        setPollCount(prev => prev + 1);
-        
-        // Stop polling after too many failures
-        if (pollCount > 60) { // 5 minutes of polling
-          clearInterval(pollInterval);
-          setError('Generation timed out. Please try again.');
-        }
-      }
-    };
-    
-    // Initial poll
-    await poll();
-    
-    // Poll every 2 seconds
-    // eslint-disable-next-line prefer-const
-    pollInterval = setInterval(poll, 2000);
-    
-    // Cleanup on unmount
-    return () => clearInterval(pollInterval);
-  }, [pollCount, router, sessionId]);
 
   const getElapsedTime = () => {
     if (!startTime) return 0;

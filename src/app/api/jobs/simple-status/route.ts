@@ -14,8 +14,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Get job from existing playbook storage
-    const { playbookStorage } = await import('../../generate/route');
+    // Get job from shared storage
+    const { playbookStorage } = await import('../../../../lib/storage');
     const job = playbookStorage.get(jobId);
     
     if (!job) {

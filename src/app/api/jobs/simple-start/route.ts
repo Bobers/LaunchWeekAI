@@ -18,13 +18,13 @@ export async function POST(request: NextRequest) {
     // Create job ID
     const jobId = uuidv4();
     
-    // Store job in existing playbook storage with initial status
-    const { playbookStorage } = await import('../../generate/route');
+    // Store job in shared storage with initial status
+    const { playbookStorage } = await import('../../../../lib/storage');
     
     playbookStorage.set(jobId, {
       status: 'processing',
-      playbook: null,
-      error: null,
+      playbook: undefined,
+      error: undefined,
       createdAt: new Date().toISOString(),
       progress: {
         currentStep: 0,
@@ -57,11 +57,11 @@ async function processInBackground(jobId: string, markdown: string) {
   console.log(`Starting background processing for job ${jobId}`);
   
   try {
-    const { playbookStorage } = await import('../../generate/route');
+    const { playbookStorage } = await import('../../../../lib/storage');
     
     // Update status to running
     const currentJob = playbookStorage.get(jobId);
-    if (currentJob) {
+    if (currentJob && currentJob.progress) {
       currentJob.progress.stepName = 'Extracting context...';
       currentJob.progress.currentStep = 1;
       currentJob.progress.estimatedTimeRemaining = 75;
@@ -80,10 +80,12 @@ async function processInBackground(jobId: string, markdown: string) {
     // Update progress
     if (playbookStorage.has(jobId)) {
       const job = playbookStorage.get(jobId);
-      job.progress.currentStep = 2;
-      job.progress.stepName = 'Generating user analysis...';
-      job.progress.estimatedTimeRemaining = 60;
-      playbookStorage.set(jobId, job);
+      if (job && job.progress) {
+        job.progress.currentStep = 2;
+        job.progress.stepName = 'Generating user analysis...';
+        job.progress.estimatedTimeRemaining = 60;
+        playbookStorage.set(jobId, job);
+      }
     }
 
     // Steps 2-6: Generate each section
@@ -104,10 +106,12 @@ async function processInBackground(jobId: string, markdown: string) {
       // Update progress
       if (playbookStorage.has(jobId)) {
         const job = playbookStorage.get(jobId);
-        job.progress.currentStep = i + 3; // +1 for context, +2 for current step
-        job.progress.stepName = step.name;
-        job.progress.estimatedTimeRemaining = step.time;
-        playbookStorage.set(jobId, job);
+        if (job && job.progress) {
+          job.progress.currentStep = i + 3; // +1 for context, +2 for current step
+          job.progress.stepName = step.name;
+          job.progress.estimatedTimeRemaining = step.time;
+          playbookStorage.set(jobId, job);
+        }
       }
 
       // Generate step (with timeout protection)
@@ -140,12 +144,16 @@ async function processInBackground(jobId: string, markdown: string) {
     // Mark as completed
     if (playbookStorage.has(jobId)) {
       const job = playbookStorage.get(jobId);
-      job.status = 'complete';
-      job.playbook = finalPlaybook;
-      job.progress.currentStep = 6;
-      job.progress.stepName = 'Completed successfully!';
-      job.progress.estimatedTimeRemaining = 0;
-      playbookStorage.set(jobId, job);
+      if (job) {
+        job.status = 'complete';
+        job.playbook = finalPlaybook;
+        if (job.progress) {
+          job.progress.currentStep = 6;
+          job.progress.stepName = 'Completed successfully!';
+          job.progress.estimatedTimeRemaining = 0;
+        }
+        playbookStorage.set(jobId, job);
+      }
     }
 
     console.log(`Job ${jobId} completed successfully`);
@@ -154,12 +162,14 @@ async function processInBackground(jobId: string, markdown: string) {
     console.error(`Job ${jobId} failed:`, error);
     
     // Mark as failed
-    const { playbookStorage } = await import('../../generate/route');
+    const { playbookStorage } = await import('../../../../lib/storage');
     if (playbookStorage.has(jobId)) {
       const job = playbookStorage.get(jobId);
-      job.status = 'failed';
-      job.error = error instanceof Error ? error.message : 'Unknown error';
-      playbookStorage.set(jobId, job);
+      if (job) {
+        job.status = 'failed';
+        job.error = error instanceof Error ? error.message : 'Unknown error';
+        playbookStorage.set(jobId, job);
+      }
     }
   }
 }

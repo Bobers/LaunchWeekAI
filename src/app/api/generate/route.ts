@@ -6,15 +6,8 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 });
 
-// In-memory storage for demo
-interface PlaybookData {
-  status: 'processing' | 'complete' | 'failed';
-  playbook?: string;
-  error?: string;
-  createdAt?: string;
-}
-
-const playbookStorage = new Map<string, PlaybookData>();
+// Import shared storage
+import { playbookStorage } from '../../../lib/storage';
 
 export async function POST(request: NextRequest) {
   console.log('POST /api/generate - Request received');
@@ -534,3 +527,5 @@ export async function PUT(request: NextRequest) {
     );
   }
 }
+
+// Storage is now imported from shared module
