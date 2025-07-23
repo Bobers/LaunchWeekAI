@@ -112,6 +112,9 @@ export default function PreviewPage() {
   useEffect(() => {
     const extractContext = async () => {
       try {
+        // Check if we're in the browser
+        if (typeof window === 'undefined') return;
+        
         const markdown = sessionStorage.getItem(`markdown-${sessionId}`);
         
         if (!markdown) {
@@ -149,6 +152,9 @@ export default function PreviewPage() {
     setIsGenerating(true);
     
     try {
+      // Check if we're in the browser
+      if (typeof window === 'undefined') return;
+      
       // Retrieve markdown from session storage
       const markdown = sessionStorage.getItem(`markdown-${sessionId}`);
       
@@ -171,9 +177,11 @@ export default function PreviewPage() {
       
       if (data.url) {
         // Clear session storage
-        sessionStorage.removeItem(`markdown-${sessionId}`);
-        // Redirect to playbook page
-        window.location.href = data.url;
+        if (typeof window !== 'undefined') {
+          sessionStorage.removeItem(`markdown-${sessionId}`);
+          // Redirect to playbook page
+          window.location.href = data.url;
+        }
       } else {
         throw new Error(data.error || 'Failed to generate playbook');
       }
