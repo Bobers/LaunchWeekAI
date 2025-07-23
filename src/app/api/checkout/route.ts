@@ -2,13 +2,38 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { v4 as uuidv4 } from 'uuid';
 
+// Handle CORS preflight
+export async function OPTIONS(request: NextRequest) {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
+}
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-06-30.basil',
 });
 
 export async function POST(request: NextRequest) {
+  console.log('POST /api/checkout - Request received');
+  
   try {
-    const body = await request.json();
+    let body;
+    try {
+      body = await request.json();
+      console.log('Request body parsed successfully');
+    } catch (parseError) {
+      console.error('Failed to parse request body:', parseError);
+      return NextResponse.json(
+        { error: 'Invalid request body - expected JSON' },
+        { status: 400 }
+      );
+    }
+    
     console.log('Checkout request received:', { bodyKeys: Object.keys(body), markdownLength: body.markdown?.length });
     
     const { markdown } = body;
@@ -83,8 +108,13 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Stripe checkout error:', error);
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      error: JSON.stringify(error)
+    });
     return NextResponse.json(
-      { error: 'Failed to create checkout session' },
+      { error: error instanceof Error ? error.message : 'Failed to create checkout session' },
       { status: 500 }
     );
   }
