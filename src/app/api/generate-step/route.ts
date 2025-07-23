@@ -149,254 +149,636 @@ Be extremely specific to this product and market, not generic advice.`,
 
     'launch-timeline': `${baseContext}
 
-Create a detailed 7-Day Launch Timeline with specific daily actions.
+Create a detailed Launch Timeline following the proven 2-week pattern (Week -2, Week -1, Launch Week).
 
-# 7-DAY LAUNCH TIMELINE
+# LAUNCH TIMELINE
 
-## Pre-Launch (48 Hours Before)
-### Technical Preparation
-- [ ] Specific checklist items for this product
-- [ ] Testing scenarios relevant to the target users
-- [ ] Performance benchmarks to hit
-- [ ] Error handling for expected edge cases
+## Week -2: Foundation Building
+### Monday-Tuesday: Product Readiness
+- [ ] Final bug fixes for [specific product features]
+- [ ] Load testing for expected [user volume] concurrent users
+- [ ] Set up monitoring for [specific metrics]
+- [ ] Create backup/failover plan for [specific dependencies]
 
-### Content Preparation  
-- [ ] Specific posts/content for each channel
-- [ ] Asset creation checklist
-- [ ] Outreach list preparation
+### Wednesday-Thursday: Asset Creation
+- [ ] Product Hunt gallery images (5 required)
+- [ ] 60-second demo video showing [key feature]
+- [ ] Screenshot variations (light/dark mode)
+- [ ] Social media carousel designs
+- [ ] Email templates for launch sequence
 
-### Community Preparation
-- [ ] Specific communities/people to engage
-- [ ] Relationship building tasks
+### Friday: Early Access Program
+- [ ] Identify 10-20 power users from [target audience]
+- [ ] Send early access invites with specific asks
+- [ ] Set up private feedback channel
+- [ ] Document initial reactions and issues
 
-## Day 1 (Monday) - Soft Launch
-### Morning (9 AM - 12 PM)
-- **9:00 AM:** [Specific first action]
-- **10:00 AM:** [Second action with details]
-- **11:00 AM:** [Third action]
+## Week -1: Pre-Launch Momentum
+### Monday: Waitlist Campaign
+- **Goal:** Build list of [specific number] interested users
+- **Tactics:** 
+  - Teaser posts on [relevant platforms]
+  - "Coming soon" landing page with value prop
+  - Early bird incentive: [specific offer]
 
-### Afternoon (12 PM - 6 PM)  
-- **12:00 PM:** [Lunch break action]
-- **2:00 PM:** [Afternoon activities]
-- **4:00 PM:** [Late afternoon tasks]
+### Tuesday-Wednesday: Community Warming
+- [ ] Engage in [specific subreddits/communities]
+- [ ] Share valuable content (not promotional)
+- [ ] Build relationships with active members
+- [ ] Identify potential champions
 
-### Evening Review
-- Metrics to check
-- Success criteria
-- Adjustments for Day 2
+### Thursday: Product Hunt Preparation
+- [ ] Find hunter with 500+ followers
+- [ ] Prepare launch day messaging
+- [ ] Schedule team for launch day support
+- [ ] Create tracking spreadsheet for supporters
 
-## Day 2-7
-[Continue with specific daily breakdowns]
+### Friday: Final Preparations
+- [ ] Test all systems under load
+- [ ] Brief support team on FAQs
+- [ ] Schedule social media posts
+- [ ] Final email to waitlist
 
-## Success Metrics by Day
-- Day 1: [Specific numbers to hit]
-- Day 2: [Specific numbers to hit]
-- etc.
+## Launch Week: The Big 6 Distribution
+### Monday - Soft Launch (Email + Website)
+- **9 AM:** Email to waitlist with exclusive access
+- **10 AM:** Update website with launch messaging
+- **11 AM:** First metrics check and adjustments
+- **2 PM:** Follow-up email to non-openers
+- **4 PM:** Gather initial feedback
+- **Success Metric:** [X]% conversion from waitlist
+
+### Tuesday - Product Hunt Launch
+- **12:01 AM PST:** Go live on Product Hunt
+- **6 AM:** Team begins commenting/upvoting
+- **9 AM:** Reach out to network for support
+- **12 PM:** Mid-day push to email list
+- **3 PM:** Engage with every comment
+- **6 PM:** Final push for West Coast
+- **Success Metric:** Top 5 placement
+
+### Wednesday - Reddit Activation
+- **Morning:** Post to [specific subreddit] with value-first approach
+- **Afternoon:** Engage with comments, provide helpful responses
+- **Evening:** Cross-post to related communities if well-received
+- **Success Metric:** [X] upvotes, positive sentiment
+
+### Thursday - LinkedIn Thought Leadership
+- **Morning:** Publish detailed case study post
+- **Afternoon:** Engage with comments, connect with interested users
+- **Evening:** Direct outreach to [specific user type]
+- **Success Metric:** [X] meaningful conversations
+
+### Friday - Twitter/X Momentum
+- **9 AM:** Launch recap thread with metrics
+- **12 PM:** Host Twitter Space on [relevant topic]
+- **3 PM:** Share customer success stories
+- **Success Metric:** [X] new followers, [Y] engagements
+
+## Post-Launch Week
+### Monday: Analysis & Optimization
+- Review all metrics against targets
+- Identify top converting channels
+- Plan resource allocation
+
+### Tuesday-Friday: Double Down
+- Scale what's working
+- Fix what's broken
+- Build on momentum
 
 ## Contingency Plans
-- If low traffic: [Specific backup tactics]
-- If high traffic: [Scaling actions]
-- If negative feedback: [Response strategy]
+### If Below Target Traffic
+- Activate paid ads on [best performing channel]
+- Reach out to micro-influencers in [niche]
+- Create viral contest with [specific prize]
 
-Make everything actionable with specific times, actions, and metrics.`,
+### If Overwhelmed by Demand
+- Implement queue system
+- Hire temporary support
+- Communicate transparently about delays
+
+### If Negative Feedback on [Common Concern]
+- Prepared response addressing concern
+- Show roadmap for improvement
+- Offer special support channel
+
+Every action should be specific to ${context.productName} and ${context.primaryUserPersona}.`,
 
     'platform-strategy': `${baseContext}
 
-Create platform-specific strategies based on where the target users actually spend time.
+Create a platform strategy using the Big 6 distribution channels, customized for the target audience.
 
-# PLATFORM STRATEGY
+# PLATFORM STRATEGY - THE BIG 6
 
-## Primary Platforms Analysis
-Based on the user personas, prioritize and detail strategies for:
+## 1. X/Twitter Strategy
+${context.primaryUserPersona?.includes('developer') || context.productCategory?.includes('dev') ? 
+`### Developer Twitter Approach
+- **Key Hashtags:** #buildinpublic #indiehackers #javascript #ai #devtools
+- **Content Mix:**
+  - 40% Technical insights/tutorials
+  - 30% Product updates with GIFs
+  - 20% Community engagement
+  - 10% Personal founder story
+- **Optimal Times:** 9 AM PST (devs starting work), 2 PM PST (post-lunch), 8 PM PST (evening builders)
+- **Engagement Tactics:**
+  - Reply to problems with helpful solutions
+  - Share code snippets that showcase product
+  - Host technical Twitter Spaces` : 
+`### Business Twitter Approach  
+- **Key Hashtags:** #saas #startup #productivity #ai #businessgrowth
+- **Content Mix:**
+  - 40% ROI/success stories
+  - 30% Industry insights
+  - 20% Product features
+  - 10% Team culture
+- **Optimal Times:** 8 AM EST (morning coffee), 12 PM EST (lunch break), 5 PM EST (commute)
+- **Engagement Tactics:**
+  - Share quick wins and time saved
+  - Engage with industry thought leaders
+  - Post compelling statistics`}
 
-### Platform 1: [Most relevant platform]
-- **Why this platform:** Connection to user behavior
-- **Content Strategy:** Types of posts that work
-- **Posting Schedule:** Optimal times and frequency  
-- **Engagement Tactics:** How to build relationships
-- **Success Metrics:** What to track
-- **Example Posts:** 3-5 ready-to-post examples
-- **Hashtags/Communities:** Specific ones to target
+**Example Posts:**
+1. "Just shipped [feature] that [specific benefit]. [User type] can now [achievement]. [Link]"
+2. "The problem with [current solution] is [specific issue]. Here's how we solved it: [approach]"
+3. "[Impressive metric] achieved by beta users. Here's what they're saying: [quote]"
 
-### Platform 2: [Second most relevant]
-[Same detailed breakdown]
+## 2. LinkedIn Strategy
+### Professional Network Approach
+- **Content Types:**
+  - Long-form case studies (1500+ words)
+  - Data-driven insights posts
+  - "Lessons learned" narratives
+  - Team achievement spotlights
+- **Targeting:** [Specific job titles] at [company size] companies
+- **Groups to Join:** [5 specific LinkedIn groups]
+- **Publishing Schedule:** Tuesday/Thursday 10 AM (peak engagement)
 
-### Platform 3: [Third platform]
-[Same detailed breakdown]
+**LinkedIn Post Template:**
+"I spent [time period] trying to solve [specific problem].
 
-## Channel-Specific Tactics
+The existing solutions all had the same issue: [problem].
 
-### Organic Growth Tactics
-- **Community Engagement:** Which communities, how to engage
-- **Content Marketing:** Blog topics, video ideas, podcast pitches
-- **SEO Strategy:** Keywords to target, content to create
-- **Partnership Opportunities:** Who to collaborate with
+So we built [product] to [specific solution].
 
-### Paid Options (if budget allows)
-- **Platform Ads:** Where to advertise, targeting parameters
-- **Influencer Outreach:** Who to contact, what to offer
-- **Sponsored Content:** Publications/newsletters to consider
+Results so far:
+• [Metric 1]
+• [Metric 2]  
+• [Metric 3]
 
-## Cross-Platform Integration
-- How platforms work together
-- Content repurposing strategy
-- Unified messaging approach
+[Call to action]"
 
-Focus on specific tactics that work for this exact product and user base.`,
+## 3. Product Hunt Strategy
+### Launch Day Domination
+- **Pre-Launch (1 week before):**
+  - Build list of 50+ supporters
+  - Create assets (gallery, GIF, description)
+  - Find hunter with relevant audience
+- **Launch Day Tactics:**
+  - 12:01 AM PST launch
+  - Team responds to every comment
+  - Share in relevant Slack groups
+  - Email blast at 6 AM, 12 PM, 5 PM
+- **Success Factors:** Clear value prop, compelling visuals, active engagement
+
+## 4. Reddit Strategy
+### Community-First Approach
+**Target Subreddits:**
+${context.primaryUserPersona?.includes('developer') ? 
+`- r/programming (technical discussions)
+- r/webdev (if web-related)
+- r/artificial (AI products)
+- r/${context.productName?.toLowerCase().replace(/\s+/g, '')} (create dedicated sub)` :
+`- r/entrepreneur (business focus)
+- r/SaaS (software products)
+- r/productivity (efficiency tools)
+- r/smallbusiness (SMB focus)`}
+
+**Content Strategy:**
+- Lead with value, not promotion
+- Share actionable insights
+- Respond helpfully to questions
+- Follow 9:1 rule (9 helpful comments per 1 mention)
+
+**Example Post:**
+"How we [specific achievement] - A technical deep dive"
+[Detailed, valuable content]
+[Soft mention of product at end]
+
+## 5. Email Strategy  
+### Direct Relationship Building
+- **List Building:**
+  - Exit intent popup: "Get our [specific valuable resource]"
+  - Content upgrades on blog posts
+  - Webinar registrations
+- **Email Sequences:**
+  - Welcome series (5 emails)
+  - Feature announcements
+  - Customer success stories
+  - Educational content
+- **Segmentation:** By user type, engagement level, feature usage
+
+**Cold Outreach Template:**
+"Hi [Name],
+
+Noticed you [specific action showing interest in problem space].
+
+[One sentence about their work/company]
+
+We just launched [product] which helps [user type] [specific benefit].
+
+[Specific relevant feature for them]
+
+Worth a quick look? [Link to personalized demo]
+
+[Your name]"
+
+## 6. Website/SEO Strategy
+### Organic Growth Engine
+- **Target Keywords:**
+  - "[problem] solution" (high intent)
+  - "[competitor] alternative" (comparison)
+  - "how to [specific task]" (educational)
+- **Content Plan:**
+  - 2 blog posts/week targeting long-tail keywords
+  - Comparison pages for top 3 competitors
+  - Use case pages for each persona
+  - Technical documentation (if applicable)
+- **Conversion Optimization:**
+  - Above-fold value proposition
+  - Social proof (logos, testimonials)
+  - Clear CTAs throughout
+  - Exit intent offers
+
+## Cross-Channel Amplification
+### How Channels Work Together
+1. **Product Hunt → Twitter:** Live tweet progress, share milestones
+2. **Reddit → Email:** Capture interested users from valuable posts
+3. **LinkedIn → Website:** Drive traffic to detailed case studies
+4. **Twitter → Product Hunt:** Mobilize followers for launch
+5. **Email → All Channels:** Coordinate messaging across platforms
+
+## Channel Prioritization
+Based on ${context.productName} and ${context.primaryUserPersona}:
+1. **Primary (60% effort):** [Top 2 channels]
+2. **Secondary (30% effort):** [Next 2 channels]  
+3. **Maintenance (10% effort):** [Remaining channels]
+
+Focus resources where ${context.primaryUserPersona} actually spends time.`,
 
     'content-templates': `${baseContext}
 
-Create ready-to-use content templates tailored to the specific product and audience.
+Create ready-to-use content using the Hook Formula: [Problem] + [Time/Cost Saved] + [Unique Method]
 
 # CONTENT TEMPLATES
 
+## The Hook Formula
+Core Hook: "${context.painPoints || 'Problem'} + ${context.coreValueProposition || 'Solution'} + [Specific Method]"
+
+Example variations:
+1. "Turn [input] into [output] in [timeframe] with [unique approach]"
+2. "Cut [cost/time] by [percentage] using [specific method]"
+3. "[Achieve outcome] without [common pain point] using [product]"
+
 ## Social Media Templates
 
-### Twitter/X Posts (10 variations)
-1. **Problem/Solution Hook:**
-   "[Specific problem user faces] → [Product] solves this in [specific way]. [Call to action]"
-   
-2. **Feature Highlight:**
-   "[Specific feature] means [specific benefit]. [User type] love this because [specific reason]."
-   
-3. **Social Proof:**
-   "[User type] just [specific achievement] using [product]. [Quote/result] [Link]"
+### Twitter/X Thread (Viral Format)
+**Thread Starter:**
+"How ${context.productName} helps ${context.primaryUserPersona} ${context.coreValueProposition} in [specific timeframe]:
 
-[Continue with 7 more specific templates]
+A thread 🧵"
 
-### LinkedIn Posts (5 variations)
-[Professional, detailed posts for B2B audience]
+**Thread Body:**
+"1/ The problem: [Specific pain point with real example]
 
-### Reddit/Community Posts (3 variations)
-[Community-specific language and approach]
+2/ Current solutions: [Why they fall short]
+
+3/ Our approach: [Unique method/insight]
+
+4/ Results so far: [Specific metrics/testimonials]
+
+5/ How it works: [Simple 3-step explanation]
+
+6/ What users say: [Powerful quote]
+
+7/ Try it yourself: [Link with specific CTA]"
+
+### LinkedIn Posts (5 Professional Templates)
+
+**Template 1 - Problem/Solution Story:**
+"I talked to 50+ ${context.primaryUserPersona} last month.
+
+The #1 problem they face? ${context.painPoints}
+
+Existing solutions ${context.competitiveLandscape ? 'like ' + context.competitiveLandscape : ''} don't work because [specific reason].
+
+So we built ${context.productName} to [specific solution].
+
+Early results:
+• [Metric 1]
+• [Metric 2]
+• [Metric 3]
+
+[Call to action with link]"
+
+**Template 2 - Case Study Format:**
+"Case Study: How [Customer Type] saved [specific metric] using ${context.productName}
+
+Challenge: [Specific problem]
+Solution: [How product helped]
+Results: [Quantified outcome]
+
+Key takeaway: [Broader lesson]
+
+[Link to full case study]"
+
+**Template 3 - Industry Insight:**
+"The ${context.productCategory || 'industry'} is changing.
+
+[Trend observation]
+
+This means ${context.primaryUserPersona} need to [specific action].
+
+Here's how forward-thinking teams are adapting: [3 bullet points]
+
+[Soft product mention]"
+
+### Reddit Posts (Community-First)
+
+**Educational Post:**
+"[How I/We] ${context.coreValueProposition} - A Technical Deep Dive
+
+[Detailed valuable content about the problem/solution]
+[Code examples or detailed methodology]
+[Lessons learned]
+
+PS: We turned this into a product called ${context.productName} if anyone's interested."
 
 ## Email Templates
 
 ### Welcome Email
-**Subject:** [Specific subject line]
-**Body:** [Complete email with personalization]
+**Subject:** "Your ${context.productName} account is ready - here's your quickstart guide"
 
-### Feature Announcement
-**Subject:** [Specific subject line]  
-**Body:** [Complete email]
+**Body:**
+"Hi [Name],
 
-### Re-engagement Campaign
-**Subject:** [Specific subject line]
-**Body:** [Complete email]
+Welcome to ${context.productName}! You're joining [number] other ${context.primaryUserPersona} who are already ${context.coreValueProposition}.
 
-## Website Copy Templates
+Here's how to get your first win in the next 10 minutes:
+
+1. [Specific first action]
+2. [Second quick win]
+3. [Third step to value]
+
+[Button: Get Started]
+
+P.S. Reply to this email if you need any help. I personally read every response.
+
+[Founder name]"
+
+### Launch Announcement
+**Subject:** "${context.productName} is live - ${context.coreValueProposition} [${'freemium' === context.monetizationModel ? 'free to start' : 'with ' + context.pricingSignals || 'special launch pricing'}]"
+
+**Body:**
+[Compelling launch email based on product specifics]
+
+## Website Copy
 
 ### Hero Section
-- **Headline:** [7-10 words that hook the target user]
-- **Subheadline:** [15-20 words explaining the benefit]
-- **CTA Button:** [3-4 words that compel action]
+**Headline Options:**
+1. "${context.coreValueProposition} in [specific timeframe]"
+2. "The [superlative] way to [achieve outcome] for ${context.primaryUserPersona}"
+3. "[Achieve outcome] without [pain point]"
 
-### Feature Descriptions (3 key features)
-Each with:
-- Feature name
-- Benefit-focused description  
-- Use case example
-- Social proof element
+**Subheadline Options:**
+1. "Join [number] ${context.primaryUserPersona} who [specific achievement] using ${context.productName}"
+2. "[Specific method] that [specific benefit] for [user type]"
+3. "Finally, a [product category] that actually [delivers promise]"
 
-### Landing Page Copy
-Complete sections for:
-- Problem/solution fit
-- How it works
-- Social proof
-- Pricing/offer
-- FAQ responses
+**CTA Buttons:**
+- Free/Freemium: "Start Free" / "Get Started Free" / "Try It Now"
+- Trial: "Start 7-Day Trial" / "Try Risk-Free"
+- Demo: "See It In Action" / "Get Your Demo"
+
+### Landing Page Sections
+
+**Problem Section:**
+"If you're a ${context.primaryUserPersona}, you know the struggle:
+• [Pain point 1 with specific example]
+• [Pain point 2 with emotional impact]
+• [Pain point 3 with cost/time impact]
+
+${context.competitiveLandscape ? 'Current solutions like ' + context.competitiveLandscape + ' fall short because [reason].' : 'Until now, there hasn\'t been a good solution.'}"
+
+**Solution Section:**
+"${context.productName} [does what] so you can [achieve outcome].
+
+[3-step how it works]
+
+No [common objection]. No [another objection]. Just [core benefit]."
+
+**Social Proof Section:**
+"${context.primaryUserPersona} love ${context.productName}:
+
+'[Testimonial focusing on specific result]' - [Name, Title]
+
+'[Testimonial addressing main objection]' - [Name, Title]
+
+'[Testimonial about ease of use]' - [Name, Title]"
 
 ## Outreach Templates
 
-### Cold Email (3 variations)
-Personalized for different user types
+### Cold DM (Twitter/LinkedIn)
+"Hey [Name], saw your post about [relevant topic].
 
-### DM Templates (Twitter, LinkedIn)
-Platform-specific approaches
+[One line showing you understand their problem]
 
-### Community Introduction Posts
-How to introduce the product in communities
+We just launched ${context.productName} which helps ${context.primaryUserPersona} ${context.coreValueProposition}.
 
-All templates should be immediately usable with minimal customization.`,
+[Specific feature relevant to them]
+
+Worth a quick look? [Link]"
+
+### Community Introduction
+"Hey everyone! 👋
+
+I've been lurking here for a while and learning a ton about [relevant topic].
+
+Based on discussions I've seen about [common problem], I built something that might help:
+
+[Brief description of ${context.productName}]
+
+[Specific value for this community]
+
+Happy to answer any questions or get your feedback!
+
+[Link]"
+
+## Content Calendar (First Week)
+- Monday: Welcome/launch announcement (Email + Twitter)
+- Tuesday: Product Hunt launch assets
+- Wednesday: Educational Reddit post
+- Thursday: LinkedIn case study
+- Friday: Twitter thread recap
+- Weekend: Community engagement
+
+All templates are customized for ${context.productName} targeting ${context.primaryUserPersona}.`,
 
     'metrics-dashboard': `${baseContext}
 
-Create a comprehensive metrics tracking plan with specific KPIs and tools.
+Create a comprehensive playbook including metrics, pricing strategy, and launch assets.
 
-# METRICS DASHBOARD
+# METRICS & EXECUTION DASHBOARD
 
-## Key Performance Indicators (KPIs)
+## Pricing Strategy
 
-### Acquisition Metrics
-- **Traffic Sources:** Specific channels to track
-- **Conversion Rates:** By source and user type  
-- **Cost Per Acquisition:** If using paid channels
-- **Time to First Value:** User onboarding success
-- **Signup/Trial Conversion:** Funnel optimization
+### Recommended Model: ${context.monetizationModel === 'freemium' ? 'Freemium' : context.monetizationModel === 'subscription' ? 'SaaS Trial' : 'Custom'}
+${context.primaryUserPersona?.toLowerCase().includes('business') || context.primaryUserPersona?.toLowerCase().includes('enterprise') ?
+`#### B2B Pricing Structure
+**14-Day Free Trial → Paid Plans**
+- **Starter:** $49/month (1-5 users, core features)
+- **Professional:** $149/month (6-20 users, advanced features)
+- **Enterprise:** $499/month (unlimited users, white-label, API)
+- **Annual Discount:** 20% off (2.4 months free)
 
-### Engagement Metrics  
-- **Feature Usage:** Which features drive retention
-- **User Actions:** Key behaviors that predict success
-- **Session Duration:** Quality of engagement
-- **Return Visits:** Indication of product-market fit
+**Value Anchoring:**
+- Compare to employee hours saved
+- ROI calculator on pricing page
+- Case studies showing 10x returns` :
+`#### B2C/Developer Pricing Structure  
+**Freemium Model**
+- **Free Forever:** [Specific limits - e.g., 100 API calls/month]
+- **Pro:** $29/month (unlimited usage, priority support)
+- **Team:** $99/month (5 seats, collaboration features)
+- **Annual Discount:** 20% off
 
-### Business Metrics
-- **Revenue:** Specific to the monetization model
-- **Customer Lifetime Value:** User worth calculation
-- **Churn Rate:** Retention tracking
-- **Net Promoter Score:** User satisfaction
+**Psychological Triggers:**
+- Most popular badge on Pro
+- Limited-time launch pricing
+- Usage-based fair pricing`}
 
-## Daily Tracking Plan
+### Offer Optimization
+- **Launch Special:** ${context.productStage === 'beta' ? '50% off for beta users (lifetime)' : '30% off first 3 months'}
+- **Urgency:** "Launch pricing ends [date]"
+- **Risk Reversal:** ${context.monetizationModel === 'subscription' ? '30-day money-back guarantee' : 'No credit card required'}
+- **Social Proof:** "Join [X] ${context.primaryUserPersona} already using ${context.productName}"
 
-### Day 1-3 Focus
-- **Primary:** [Top 3 metrics to watch]
-- **Secondary:** [Supporting metrics]
-- **Warning Signs:** [What indicates problems]
-- **Action Triggers:** [When to pivot tactics]
+## Launch Asset Checklist
 
-### Day 4-7 Focus
-- **Primary:** [Shifted focus metrics]
-- **Growth:** [Metrics indicating momentum]
-- **Optimization:** [What to improve]
+### Visual Assets ✅
+- [ ] Logo variations (PNG): Light mode, dark mode, square icon
+- [ ] Product screenshots (5): Dashboard, key feature, results, integrations, mobile
+- [ ] Demo video (60 sec): Problem (10s) → Solution (40s) → CTA (10s)
+- [ ] Product Hunt gallery: Cover image (1200x600), 3-5 feature images
+- [ ] Social media templates: Twitter header, LinkedIn banner, OG images
 
-## Tools and Setup
+### Copy Assets ✅  
+- [ ] One-liner: "${context.coreValueProposition}"
+- [ ] Elevator pitch (30 sec): Problem + solution + differentiator
+- [ ] Product Hunt tagline (60 chars): Focus on outcome
+- [ ] Email signatures: Team members with launch CTA
+- [ ] Bio updates: All team social profiles
 
-### Free Tools
-- **Google Analytics:** Specific events to track
-- **Social Media Analytics:** Native platform insights
-- **Email Analytics:** Open/click tracking
-- **Customer Feedback:** Simple survey tools
+### Technical Assets ✅
+- [ ] Landing page: Optimized for conversions
+- [ ] Analytics/tracking: GA4, hotjar, attribution
+- [ ] Live chat: Help Scout or Intercom ready
+- [ ] Status page: status.${context.productName?.toLowerCase().replace(/\s+/g, '')}.com
+- [ ] Documentation: Getting started guide
 
-### Paid Tools (if budget allows)
-- **Advanced Analytics:** Mixpanel, Amplitude
-- **Social Monitoring:** Brand24, Mention
-- **Email Advanced:** ConvertKit, Mailchimp
-- **Customer Success:** Intercom, Zendesk
+## Key Metrics (The Big 5)
 
-## Success Benchmarks
+### 1. Activation Rate
+**Definition:** % of signups who ${context.coreValueProposition ? 'achieve first ' + context.coreValueProposition : 'complete key action'}
+**Target:** ${context.primaryUserPersona?.includes('developer') ? '40%' : '60%'} within 24 hours
+**Tracking:** Custom event when user [specific action]
 
-### Week 1 Targets
-- **Traffic:** [Specific numbers]
-- **Signups:** [Specific numbers]  
-- **Engagement:** [Specific metrics]
-- **Revenue:** [If applicable]
+### 2. Time to Value (TTV)
+**Definition:** Minutes from signup to "aha moment"
+**Target:** Under ${context.productCategory?.includes('simple') || context.productCategory?.includes('easy') ? '5 minutes' : '30 minutes'}
+**Optimization:** Streamline onboarding, remove friction
 
-### Warning Thresholds
-- **Low Performance:** [When to worry]
-- **Technical Issues:** [What to monitor]
-- **User Feedback:** [Negative signals]
+### 3. Daily Active Users (DAU)
+**Week 1 Targets:**
+- Day 1: 50-100 users
+- Day 3: 200-500 users  
+- Day 7: 500-1000 users
+**Growth Rate:** 20-30% daily during launch
 
-## Reporting Schedule
-- **Daily:** [What to check every day]
-- **Weekly:** [Weekly review items]
-- **Monthly:** [Long-term trend analysis]
+### 4. Conversion Rate
+**Funnel:** Visitor → Signup → Trial/Free → Paid
+**Benchmarks:**
+- Visitor → Signup: 3-5%
+- Signup → Trial: ${context.monetizationModel === 'freemium' ? '100%' : '60-80%'}
+- Trial → Paid: ${context.primaryUserPersona?.includes('business') ? '15-25%' : '2-5%'}
 
-## Action Plans
-- **Above Target:** [How to capitalize]
-- **On Target:** [How to maintain]
-- **Below Target:** [Specific recovery tactics]
+### 5. Revenue Metrics
+- **MRR Growth:** Track daily during launch
+- **ARPU:** $${context.pricingSignals?.match(/\d+/)?.[0] || '50'} target
+- **CAC Payback:** Under 3 months
+- **LTV:CAC Ratio:** Aim for 3:1
 
-Focus on metrics that actually matter for this specific product and business model.`
+## Launch Week Dashboard
+
+### Real-Time Monitoring
+**Every 2 Hours Check:**
+- Signup velocity and source
+- Error rates and performance
+- Support ticket themes
+- Social sentiment
+
+### Daily Review (6 PM)
+1. **Numbers:** Compare to daily targets
+2. **Feedback:** Categorize user comments
+3. **Channels:** Identify top performers
+4. **Tomorrow:** Adjust tactics based on data
+
+### Success Criteria
+**Green Light (exceeding targets):**
+- Scale winning channels
+- Increase ad spend
+- Accelerate content schedule
+
+**Yellow Light (meeting targets):**
+- Maintain current efforts
+- Test new channels
+- Gather more feedback
+
+**Red Light (below targets):**
+- Diagnose bottlenecks
+- Simplify onboarding
+- Increase direct outreach
+- Consider pivot in messaging
+
+## Contingency Plans
+
+### If Conversion Below Target
+1. **Immediate:** Add exit intent survey
+2. **Day 2:** Simplify signup flow
+3. **Day 3:** Test new value proposition
+4. **Day 4:** Offer extended trial
+
+### If Servers Overloaded
+1. **Immediate:** Scale infrastructure
+2. **Communication:** Status page update
+3. **Waitlist:** Convert to exclusive access
+4. **PR:** "Overwhelming demand" story
+
+### If Negative Feedback on [Specific Concern]
+1. **Acknowledge:** Public response within 2 hours
+2. **Fix:** Ship improvement within 48 hours
+3. **Follow-up:** Personal reach out to critics
+4. **Document:** Add to roadmap publicly
+
+## Tools Setup
+**Pre-Launch Setup:**
+- [ ] Google Analytics 4 with conversion tracking
+- [ ] Mixpanel/Amplitude for product analytics  
+- [ ] Hotjar for user recordings
+- [ ] Stripe with revenue tracking
+- [ ] Customer.io for email automation
+- [ ] Slack webhooks for real-time alerts
+
+Every metric and action tied specifically to ${context.productName} and ${context.primaryUserPersona} success.`
   };
 
   const prompt = prompts[step];
