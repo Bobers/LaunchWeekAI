@@ -8,10 +8,14 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(request: NextRequest) {
   try {
-    const { markdown } = await request.json();
+    const body = await request.json();
+    console.log('Checkout request received:', { bodyKeys: Object.keys(body), markdownLength: body.markdown?.length });
+    
+    const { markdown } = body;
 
     // Basic validation
     if (!markdown || typeof markdown !== 'string') {
+      console.error('Validation failed: markdown missing or not string', { markdown: !!markdown, type: typeof markdown });
       return NextResponse.json(
         { error: 'Markdown content is required' },
         { status: 400 }
@@ -19,6 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (markdown.length > 50000) {
+      console.error('Validation failed: content too long', { length: markdown.length });
       return NextResponse.json(
         { error: 'Markdown content exceeds 50,000 character limit' },
         { status: 400 }
@@ -26,11 +31,20 @@ export async function POST(request: NextRequest) {
     }
 
     if (markdown.trim().length < 100) {
+      console.error('Validation failed: content too short', { trimmedLength: markdown.trim().length });
       return NextResponse.json(
         { error: 'Markdown content too short. Please provide more detailed documentation.' },
         { status: 400 }
       );
     }
+
+    // Log Stripe configuration
+    console.log('Stripe config check:', {
+      hasSecretKey: !!process.env.STRIPE_SECRET_KEY,
+      hasPriceId: !!process.env.STRIPE_PRICE_ID,
+      hasPublicUrl: !!process.env.NEXT_PUBLIC_URL,
+      priceId: process.env.STRIPE_PRICE_ID
+    });
 
     // Generate unique playbook ID
     const playbookId = uuidv4();
