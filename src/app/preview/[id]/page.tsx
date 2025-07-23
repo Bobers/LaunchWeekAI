@@ -164,11 +164,27 @@ export default function PreviewPage() {
         return;
       }
 
-      // Store context for the generation page
-      sessionStorage.setItem(`context-${sessionId}`, JSON.stringify(context));
+      // Start async job
+      const response = await fetch('/api/jobs/simple-start', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ markdown }),
+      });
+
+      const data = await response.json();
       
-      // Redirect to step-by-step generation page
-      window.location.href = `/generate/${sessionId}`;
+      if (data.jobId) {
+        // Store context for the generation page
+        sessionStorage.setItem(`context-${sessionId}`, JSON.stringify(context));
+        sessionStorage.setItem(`job-${sessionId}`, data.jobId);
+        
+        // Redirect to async generation page
+        window.location.href = `/generate-async/${sessionId}`;
+      } else {
+        throw new Error(data.error || 'Failed to start generation');
+      }
       
     } catch (error) {
       console.error('Error:', error);
