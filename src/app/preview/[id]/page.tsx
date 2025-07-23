@@ -158,33 +158,18 @@ export default function PreviewPage() {
       // Retrieve markdown from session storage
       const markdown = sessionStorage.getItem(`markdown-${sessionId}`);
       
-      if (!markdown) {
+      if (!markdown || !context) {
         alert('Session expired. Please start over.');
         router.push('/');
         return;
       }
 
-      // Call generate API
-      const response = await fetch('/api/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ markdown }),
-      });
-
-      const data = await response.json();
+      // Store context for the generation page
+      sessionStorage.setItem(`context-${sessionId}`, JSON.stringify(context));
       
-      if (data.url) {
-        // Clear session storage
-        if (typeof window !== 'undefined') {
-          sessionStorage.removeItem(`markdown-${sessionId}`);
-          // Redirect to playbook page
-          window.location.href = data.url;
-        }
-      } else {
-        throw new Error(data.error || 'Failed to generate playbook');
-      }
+      // Redirect to step-by-step generation page
+      window.location.href = `/generate/${sessionId}`;
+      
     } catch (error) {
       console.error('Error:', error);
       alert('Something went wrong. Please try again.');

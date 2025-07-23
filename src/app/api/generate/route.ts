@@ -486,3 +486,51 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json(playbook);
 }
+
+// PUT endpoint to update playbook content (for sequential generation)
+export async function PUT(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const playbookId = searchParams.get('id');
+  
+  if (!playbookId) {
+    return NextResponse.json(
+      { error: 'Playbook ID required' },
+      { status: 400 }
+    );
+  }
+
+  try {
+    const { playbook } = await request.json();
+    
+    if (!playbook) {
+      return NextResponse.json(
+        { error: 'Playbook content required' },
+        { status: 400 }
+      );
+    }
+
+    // Update the playbook content
+    const existingPlaybook = playbookStorage.get(playbookId);
+    
+    if (!existingPlaybook) {
+      return NextResponse.json(
+        { error: 'Playbook not found' },
+        { status: 404 }
+      );
+    }
+
+    playbookStorage.set(playbookId, {
+      ...existingPlaybook,
+      playbook,
+      status: 'complete'
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Update playbook error:', error);
+    return NextResponse.json(
+      { error: 'Failed to update playbook' },
+      { status: 500 }
+    );
+  }
+}
